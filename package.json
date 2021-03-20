@@ -1,0 +1,19 @@
+{
+  "name": "cartridge-accounting",
+  "version": "1.0.0",
+  "description": "alfa-bank cartridge accaunting system",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/int1bh/cartridge-accounting.git"
+  },
+  "author": "Alexandr Dryagin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/int1bh/cartridge-accounting/issues"
+  },
+  "homepage": "https://github.com/int1bh/cartridge-accounting#readme"
+}
