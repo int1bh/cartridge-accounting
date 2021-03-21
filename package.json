@@ -1,10 +1,11 @@
 {
   "name": "cartridge-accounting",
   "version": "1.0.0",
-  "description": "alfa-bank cartridge accaunting system",
+  "description": "alfa-bank cartridge accounting system",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,15 @@
   "bugs": {
     "url": "https://github.com/int1bh/cartridge-accounting/issues"
   },
-  "homepage": "https://github.com/int1bh/cartridge-accounting#readme"
+  "homepage": "https://github.com/int1bh/cartridge-accounting#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.1"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "nodemon": "^2.0.7"
+  }
 }
