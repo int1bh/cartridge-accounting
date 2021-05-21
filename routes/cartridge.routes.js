@@ -4,8 +4,13 @@ const router = Router()
 
 router.get('/base', async (req, res) => {
     try {
-        const base = await Cartridge.find({}).limit(+req.query.limit)
-        res.status(201).json(base)
+        if (req.query.modelName) {
+            const base = await Cartridge.find({"modelName": req.query.modelName}).limit(+req.query.limit)
+            res.status(201).json(base)
+        } else {
+            const base = await Cartridge.find().limit(+req.query.limit)
+            res.status(201).json(base)
+        }
     } catch (e) {
         res.status(500).json({message: e.message})
     }
