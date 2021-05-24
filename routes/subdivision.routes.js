@@ -2,6 +2,11 @@ const { Router } = require('express')
 const Subdivision = require('../models/Subdivision')
 const router = Router()
 
+
+// ==================================================================================
+//                           Получение списка отделений
+// ==================================================================================
+
 router.get('/getsubdivision', async (req, res) => {
     try {
         const subdivision = await Subdivision.find({})
@@ -10,6 +15,11 @@ router.get('/getsubdivision', async (req, res) => {
         res.status(500).json({message: e.message})
     }
 })
+
+
+// ===================================================================================
+//                               Добавление нового отделения
+// ===================================================================================
 
 router.post('/addsubdivision', async (req, res) => {
     try {
@@ -26,11 +36,16 @@ router.post('/addsubdivision', async (req, res) => {
     }
 })
 
-router.delete('/removesubdivision', async (req, res) => {
+
+// ===================================================================================
+//                               Удаление отделения
+// ===================================================================================
+
+router.delete('/dropsubdivision', async (req, res) => {
     try {
         const {divisionName} = req.body //получаем поля с фронтенда в теле запроса
 
-        const division = await Subdivision.deleteOne({divisionName})
+        await Subdivision.deleteOne({divisionName})
         
         res.status(201).json({message: 'Успешно удалено'})
     } catch (e) {

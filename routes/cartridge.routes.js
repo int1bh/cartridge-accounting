@@ -7,7 +7,7 @@ const router = Router()
 // Получение всех картриджей из базы, фильтрация по модели, лимит выдачи результата
 // ==================================================================================
 
-router.get('/base', async (req, res) => {
+router.get('/getall', async (req, res) => {
     try {
         if (req.query.modelName) {
             const base = await Cartridge.find({"modelName": req.query.modelName}).limit(+req.query.limit)
@@ -28,9 +28,9 @@ router.get('/base', async (req, res) => {
 
 router.post('/addcartridge', async (req, res) => {
     try {
-        const {modelName, registered, issued, issuedHistory, toRefuel} = req.body //получаем поля с фронтенда в теле запроса
+        const {modelName, registered, barcode, issued, issuedHistory, toRefuel} = req.body //получаем поля с фронтенда в теле запроса
 
-        const cartridge = new Cartridge({modelName, registered, issued, issuedHistory, toRefuel})
+        const cartridge = new Cartridge({modelName, registered, barcode, issued, issuedHistory, toRefuel})
 
         await cartridge.save()
 
@@ -46,11 +46,11 @@ router.post('/addcartridge', async (req, res) => {
 //                               Выдача картриджей в отделения
 // ===================================================================================
 
-router.put('/editcartridge', async (req, res) => {
+router.put('/issue', async (req, res) => {
     try {
-        const {_id, issuedHistory, issued} = req.body //получаем поля с фронтенда в теле запроса
+        const {barcode, issuedHistory, issued} = req.body //получаем поля с фронтенда в теле запроса
 
-        await Cartridge.updateMany({_id: {$in: [..._id]}}, {$push: {issuedHistory: {subdivision: issuedHistory[0].subdivision}}, $set: {issued: issued}})
+        await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: issuedHistory[0].subdivision}}, $set: {issued: issued}})
         
         res.status(201).json({message: "Выдано в" + " " + issuedHistory[0].subdivision})
 
@@ -64,11 +64,11 @@ router.put('/editcartridge', async (req, res) => {
 //                               Удаление картриджей из базы
 // ===================================================================================
 
-router.delete('/removecartridge', async (req, res) => {
+router.delete('/dropcartridge', async (req, res) => {
     try {
-        const {_id} = req.body //получаем поля с фронтенда в теле запроса
+        const {barcode} = req.body //получаем поля с фронтенда в теле запроса
 
-        await Cartridge.deleteMany({_id: {$in: [..._id]}})
+        await Cartridge.deleteMany({barcode: {$in: [...barcode]}})
         
         res.status(201).json({message: 'Успешно удалено'})
     } catch (e) {
