@@ -30,7 +30,7 @@ app.use(bodyparser.urlencoded({extended: true}))
 
 app.use('/api/', require('./routes/cartridge.routes'))
 app.use('/api/', require('./routes/subdivision.routes'))
-
+app.use('/api/', require('./routes/cartridgeModels.routes'))
 const PORT = config.get('port') || 5000
 
 
