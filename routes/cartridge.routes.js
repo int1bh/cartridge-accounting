@@ -1,4 +1,4 @@
-const { Router } = require('express')
+const { Router, json } = require('express')
 const Cartridge = require('../models/Cartridge')
 const router = Router()
 
@@ -48,12 +48,79 @@ router.post('/addcartridge', async (req, res) => {
 
 router.put('/issue', async (req, res) => {
     try {
-        const {barcode, issuedHistory, issued} = req.body //получаем поля с фронтенда в теле запроса
+        const {barcode, issuedHistory} = req.body //получаем поля с фронтенда в теле запроса
+        const result = await Cartridge.find({"barcode": req.body.barcode})
+             
+        if(!result[0].issued) {
+            await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: issuedHistory[0].subdivision}}, $set: {issued: true}})
+            res.status(201).json({message: "Выдано в" + " " + issuedHistory[0].subdivision})
+        } else {
+            res.status(500).json({message: "Нельзя выдать ранее выданный картридж!"})
+        } 
 
-        await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: issuedHistory[0].subdivision}}, $set: {issued: issued}})
+    } catch (e) {
+        res.status(500).json({message: e.message})
+    }
+})
+
+// ===================================================================================
+//                               Возврат на склад
+// ===================================================================================
+
+router.put('/returnwarehouse', async (req, res) => {
+    try {
+        const {barcode} = req.body
+        const result = await Cartridge.find({"barcode": req.body.barcode})
         
-        res.status(201).json({message: "Выдано в" + " " + issuedHistory[0].subdivision})
+        if(result[0].issued) {
+            await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Склад"}}, $set: {issued: false}})
+            res.status(201).json({message: "Успешно!"})
+        } else {
+            res.status(500).json({message: "Картридж уже возвращен"})
+        }
+    
+    } catch (e) {
+        res.status(500).json({message: e.message})
+    }
+})
 
+// ===================================================================================
+//                               Отправка на заправку
+// ===================================================================================
+
+router.put('/torefuel', async (req, res) => {
+    try {
+        const {barcode} = req.body
+        const result = await Cartridge.find({"barcode": req.body.barcode})
+        
+        if(!result[0].issued & !result[0].toRefuel) {
+            await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Отдан в заправку"}}, $set: {issued: false, toRefuel: true}})
+            res.status(201).json({message: "Отдан в заправку"})
+        } else {
+            res.status(500).json({message: "Ошибка! Картридж уже в заправке"})
+        }
+    
+    } catch (e) {
+        res.status(500).json({message: e.message})
+    }
+})
+
+// ===================================================================================
+//                               Прием с заправки
+// ===================================================================================
+
+router.put('/returnrefuel', async (req, res) => {
+    try {
+        const {barcode} = req.body
+        const result = await Cartridge.find({"barcode": req.body.barcode})
+        
+        if(!result[0].issued & result[0].toRefuel) {
+            await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Склад"}}, $set: {issued: false, toRefuel: false}})
+            res.status(201).json({message: "Принят на склад"})
+        } else {
+            res.status(500).json({message: "Принят ранее"})
+        }
+    
     } catch (e) {
         res.status(500).json({message: e.message})
     }
