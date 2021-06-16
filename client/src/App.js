@@ -1,16 +1,19 @@
 import React from 'react';
 import Menu from './component/menu';
-import TestComponent from './component/testComponent';
+import Content from './component/content'
+import 'materialize-css';
+import './App.css'
+
 
 function App() {
   return (
-    <div className="container pt-3">
+    <div>
       <div className="row">
-    <div className="col-2">
-      <Menu />
+    <div className="col s2">  
+        <Menu />
     </div>
-    <div className="col-10">.col-10
-    <TestComponent />
+    <div className="col s10">
+        <Content />
     </div>
       </div>
     </div>

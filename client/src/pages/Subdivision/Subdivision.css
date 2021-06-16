@@ -1,0 +1,8 @@
+.scrolled {
+    height: 60vh;
+    overflow-y: scroll;
+}
+
+.scrolled::-webkit-scrollbar {
+    width: 0;
+}

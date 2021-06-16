@@ -1,18 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './menu.css'
 
 const Menu = () => {
     return (
-        <div className="row">
-            <ul className="list-group list-group-flush btn-group">
-                <li className="list-group-item"><Link to="/" className="btn btn-primary btn-menu">Монитор</Link></li>
-                <li className="list-group-item"><Link to="/addcartridge" className="btn btn-primary">Добавить картридж</Link></li>
-                <li className="list-group-item"><Link to="/subdivision" className="btn btn-primary">Справочник отделений</Link></li>
-                <li className="list-group-item"><Link to="/directory" className="btn btn-primary">Справочник картриджей</Link></li>
-                <li className="list-group-item"><Link to="/reports" className="btn btn-primary btn-menu">Отчёты</Link></li>
-            </ul>
-       </div>
+        <div className="collection">
+            <Link to="/" className="collection-item">Монитор</Link>
+            <Link to="/issue" className="collection-item">Выдать картриджи</Link>
+            <Link to="/returnwarehouse" className="collection-item">Принять картриджи</Link>
+            <Link to="/torefuel" className="collection-item">Заправить картриджи</Link>
+            <Link to="/returnrefuel" className="collection-item">Принять с заправки</Link>
+            <Link to="/addcartridge" className="collection-item">Добавить картридж</Link>
+            <Link to="/trash" className="collection-item">Утилизировать картриджи</Link>
+            <Link to="/subdivision" className="collection-item">Редактор отделений</Link>
+            <Link to="/directory" className="collection-item">Редактор картриджей</Link>
+            <Link to="/reports" className="collection-item">Отчёты</Link>
+        </div>
     )
 }
   
