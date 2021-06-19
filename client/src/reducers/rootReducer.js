@@ -1,6 +1,7 @@
-import { combineReducers } from "redux";
-import { allCartridgeReducer } from "./allCartridgeReducer";
+import { combineReducers } from 'redux'
+import { subdivisionReducer } from './subdivisionReducer'
+
 
 export const rootReducer = combineReducers({    //combineReducers используется для объединения различных редюсеров
-    allCartridges: allCartridgeReducer
+    subdivision: subdivisionReducer
 })
