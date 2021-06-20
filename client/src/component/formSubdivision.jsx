@@ -8,7 +8,7 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
+  
   handleChange(event) {
     event.persist();
     this.setState((prev) => ({
@@ -31,7 +31,7 @@ class Form extends React.Component {
         body: JSON.stringify(sub),
       });
       let result = await response.json();
-      window.M.toast({ html: result.message });
+      window.M.toast({ html: result.message, classes: 'rounded' });
     }
 
     addSubdivision();

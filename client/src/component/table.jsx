@@ -1,12 +1,21 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useDispatch } from "react-redux";
+import {getState} from '../actions/subdivisionActions'
 import Column from './tableColumns'
 
 
 const Table = ( {subdivision} ) => {
+  const dispatch = useDispatch();
+  useEffect(
+    //()=>console.log(subdivision)
+    () => dispatch(getState())
+  )
+
     return (
         <div className="scrolled">
-          <table>
+          <table className="centered">
           <thead>
             <tr>
               <th>Отделение</th>

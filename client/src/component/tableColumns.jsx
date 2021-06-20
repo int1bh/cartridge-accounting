@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { viewSubdivision } from "../actions/subdivisionActions";
 
+
 const Columns = ({ divisionName, address }) => {
   const dispatch = useDispatch();
   function dsp() {
@@ -15,12 +16,9 @@ const Columns = ({ divisionName, address }) => {
     })
 
     let result = await response.json()
-    window.M.toast({ html: result.message });
+    window.M.toast({ html: result.message, classes: 'rounded' });
     dsp()
   };
-
-  
-  
 
   return (
     <React.Fragment>
@@ -35,9 +33,9 @@ const Columns = ({ divisionName, address }) => {
             Удалить
           </button>
         </td>
-      </tr>
+      </tr>  
     </React.Fragment>
   );
 };
 
-export default Columns;
+export default Columns

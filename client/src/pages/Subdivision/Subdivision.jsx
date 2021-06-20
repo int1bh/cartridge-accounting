@@ -1,12 +1,16 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch } from "react-redux";
 import { viewSubdivision } from "../../actions/subdivisionActions";
-import Form from "../../component/form";
+import Form from "../../component/formSubdivision";
 import Table from "../../component/table";
 import "./Subdivision.css";
 
 export const Subdivision = () => {
   const dispatch = useDispatch();
+
+  useEffect(
+    () => dispatch(viewSubdivision())
+  )
 
   return (
     <div>

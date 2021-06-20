@@ -1,4 +1,4 @@
-import { GET_ALL_SUBDIVISION, SHOW_LOADER, HIDE_LOADER } from '../actions/subdivisionActions'
+import { GET_ALL_SUBDIVISION, GET_SUBDIVISION_STATE, SHOW_LOADER, HIDE_LOADER } from '../actions/subdivisionActions'
 
 const initialState = {
     subdivision: []
@@ -10,6 +10,8 @@ export function subdivisionReducer(state = initialState, action) {
         return {
             ...state, subdivision: action.payload
         }
+        case GET_SUBDIVISION_STATE:
+            return {...state}
         default:
         return state
     }
