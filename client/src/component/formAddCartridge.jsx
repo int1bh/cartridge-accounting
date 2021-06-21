@@ -45,15 +45,13 @@ class FormCart extends React.Component {
             />
             <label htmlFor="barcode">Количество</label>
           </div>
-          
+          {/*  */}
           <div className="input-field col s5">
-            <label>Выбор:
             <select value={this.state.modelName} onChange={this.onChangeSelect}>
               <option value='HP80'>HP80</option>
               <option value='hp37'>HP37</option>
               <option value='hp226'>HP226</option>
             </select>
-            </label>
           </div>
           <div className="col s4">список подразделений</div>
           <div className="row">
