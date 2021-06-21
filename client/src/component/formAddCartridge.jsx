@@ -1,4 +1,6 @@
 import React from "react";
+import Button from 'react-bootstrap/Button'
+import Badge from 'react-bootstrap/Badge'
 
 class FormCart extends React.Component {
   constructor(props) {
@@ -45,7 +47,10 @@ class FormCart extends React.Component {
             />
             <label htmlFor="barcode">Количество</label>
           </div>
-          {/*  */}
+          <Button variant="primary">
+  Profile <Badge variant="light">9</Badge>
+  <span className="sr-only">unread messages</span>
+</Button>
           <div className="input-field col s5">
             <select value={this.state.modelName} onChange={this.onChangeSelect}>
               <option value='HP80'>HP80</option>

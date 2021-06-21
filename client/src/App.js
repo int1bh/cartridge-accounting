@@ -1,23 +1,22 @@
 import React from 'react';
+import {Container, Col, Row} from 'react-bootstrap'
 import Menu from './component/menu';
 import Content from './component/content'
-import 'materialize-css';
-import './App.css'
 
 
 function App() {
   return (
-    <div>
-      <div className="row">
-    <div className="col s2">  
-        <Menu />
-    </div>
-    <div className="col s10">
-        <Content />
-    </div>
-      </div>
-    </div>
-  );
+    <Container fluid>
+      <Row>
+        <Col sm={2}>
+          <Menu />
+        </Col>
+        <Col sm={10}>
+          <Content />
+        </Col>
+      </Row>
+    </Container>
+  )
 }
 
 export default App;
