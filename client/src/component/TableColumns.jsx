@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import Button from "react-bootstrap/Button";
 import { viewSubdivision } from "../actions/subdivisionActions";
 
-
-const Columns = ({ divisionName, address }) => {
+const TableColumns = ({ divisionName, address }) => {
   const dispatch = useDispatch();
   function dsp() {
     return dispatch(viewSubdivision());
@@ -13,11 +13,11 @@ const Columns = ({ divisionName, address }) => {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ divisionName }),
-    })
+    });
 
-    let result = await response.json()
-    window.M.toast({ html: result.message, classes: 'rounded' });
-    dsp()
+    let result = await response.json();
+    //window.M.toast({ html: result.message, classes: "rounded" });
+    dsp();
   };
 
   return (
@@ -26,16 +26,17 @@ const Columns = ({ divisionName, address }) => {
         <td>{divisionName}</td>
         <td>{address}</td>
         <td>
-          <button
+          <Button
+            variant="danger"
             onClick={btnRemoveSub}
             className="btn waves-effect waves-light red"
           >
             Удалить
-          </button>
+          </Button>
         </td>
-      </tr>  
+      </tr>
     </React.Fragment>
   );
 };
 
-export default Columns
+export default TableColumns;

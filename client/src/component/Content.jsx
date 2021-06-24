@@ -7,8 +7,7 @@ import ReturnWarehouse from '../pages/ReturnWarehouse'
 import ToRefuel from '../pages/ToRefuel'
 import ReturnRefuel from '../pages/ReturnRefuel'
 import TrashCartridge from '../pages/TrashCartridge'
-import Subdivision from '../pages/Subdivision/Subdivision'
-import ModelCartridge from '../pages/ModelCartridge'
+import Settings from '../pages/Subdivision/Settings'
 import Reports from '../pages/Reports'
 
 const Content = () => {
@@ -21,8 +20,7 @@ const Content = () => {
             <Route path='/returnrefuel' component={ReturnRefuel} exact/>
             <Route path='/addcartridge' component={AddCartridge} exact/>
             <Route path='/trash' component={TrashCartridge} exact/>
-            <Route path='/subdivision' component={Subdivision} exact/>
-            <Route path='/directory' component={ModelCartridge} exact/>
+            <Route path='/settings' component={Settings} exact/>
             <Route path='/reports' component={Reports} exact/>
         </Switch>
     )

@@ -1,8 +1,12 @@
 .scrolled {
-    height: 60vh;
+    height: 80vh;
     overflow-y: scroll;
 }
 
 .scrolled::-webkit-scrollbar {
     width: 0;
+}
+
+.spacer {
+    height: 25px;
 }

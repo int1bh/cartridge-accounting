@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { viewSubdivision } from "../actions/subdivisionActions";
-import Card from "../component/card";
+
 
 export const Monitor = (props) => {
     const dispatch = useDispatch()
@@ -20,9 +20,7 @@ export const Monitor = (props) => {
       </ul>
         </div>
       </div>
-      <Card count="140" name="На складе" />
       
-      <Card count="14" name="В заправке" />
     </div>
   );
 };

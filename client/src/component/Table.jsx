@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useDispatch } from "react-redux";
 import {getState} from '../actions/subdivisionActions'
-import Column from './tableColumns'
+import TableColumns from './TableColumns'
 
 
 const Table = ( {subdivision} ) => {
@@ -15,16 +15,17 @@ const Table = ( {subdivision} ) => {
 
     return (
         <div className="scrolled">
-          <table className="centered">
+          <div className="spacer"></div>
+          <table className="table table-striped table-bordered">
           <thead>
             <tr>
-              <th>Отделение</th>
-              <th>Адрес</th>
-              <th></th>
+              <th scope="col">Отделение</th>
+              <th scope="col">Адрес</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-          {subdivision.map(subdivision => <Column divisionName={subdivision.divisionName} address={subdivision.address} key={subdivision._id} />)}
+          {subdivision.map(subdivision => <TableColumns divisionName={subdivision.divisionName} address={subdivision.address} key={subdivision._id} />)}
            
           </tbody>
         </table>

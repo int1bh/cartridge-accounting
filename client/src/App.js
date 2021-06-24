@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container, Col, Row} from 'react-bootstrap'
-import Menu from './component/menu';
-import Content from './component/content'
+import Menu from './component/Menu';
+import Content from './component/Content'
 
 
 function App() {

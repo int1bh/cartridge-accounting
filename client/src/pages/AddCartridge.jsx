@@ -1,5 +1,5 @@
 import React from "react";
-import FormCart from "../component/formAddCartridge";
+import FormCart from "../component/FormAddCartridge";
 
 export const AddCartridge = () => {
   return (
