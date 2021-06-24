@@ -1,12 +1,8 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Monitor from '../pages/Monitor'
-import AddCartridge from '../pages/AddCartridge'
-import IssuedCartridge from '../pages/IssueCartridge'
-import ReturnWarehouse from '../pages/ReturnWarehouse'
-import ToRefuel from '../pages/ToRefuel'
-import ReturnRefuel from '../pages/ReturnRefuel'
-import TrashCartridge from '../pages/TrashCartridge'
+import Operation from '../pages/Operation'
+import Warehouse from '../pages/Warehouse'
 import Settings from '../pages/Subdivision/Settings'
 import Reports from '../pages/Reports'
 
@@ -14,12 +10,8 @@ const Content = () => {
     return (            
         <Switch>
             <Route path='/' component={Monitor} exact/>
-            <Route path='/issue' component={IssuedCartridge} exact/>
-            <Route path='/returnwarehouse' component={ReturnWarehouse} exact/>
-            <Route path='/torefuel' component={ToRefuel} exact/>
-            <Route path='/returnrefuel' component={ReturnRefuel} exact/>
-            <Route path='/addcartridge' component={AddCartridge} exact/>
-            <Route path='/trash' component={TrashCartridge} exact/>
+            <Route path='/operation' component={Operation} exact/>
+            <Route path='/warehouse' component={Warehouse} exact/>
             <Route path='/settings' component={Settings} exact/>
             <Route path='/reports' component={Reports} exact/>
         </Switch>

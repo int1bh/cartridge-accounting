@@ -11,33 +11,13 @@ const Menu = () => {
         </Link>  
       </ListGroup.Item>
       <ListGroup.Item as='li'>
-        <Link to="/issue" className="btn btn-primary btn-block">
-          Выдать картриджи
+        <Link to="/operation" className="btn btn-primary btn-block">
+          Операции
         </Link>
       </ListGroup.Item>
       <ListGroup.Item as='li'>
-        <Link to="/returnwarehouse" className="btn btn-primary btn-block">
-          Принять картриджи
-        </Link>
-      </ListGroup.Item>
-      <ListGroup.Item as='li'>
-        <Link to="/torefuel" className="btn btn-primary btn-block">
-          Заправить картриджи
-        </Link>
-      </ListGroup.Item>
-      <ListGroup.Item as='li'>
-        <Link to="/returnrefuel" className="btn btn-primary btn-block">
-          Принять с заправки
-        </Link>
-      </ListGroup.Item>
-      <ListGroup.Item as='li'>
-        <Link to="/addcartridge" className="btn btn-primary btn-block">
-          Добавить картридж
-        </Link>
-      </ListGroup.Item>
-      <ListGroup.Item as='li'>
-        <Link to="/trash" className="btn btn-primary btn-block">
-          Утилизировать картриджи
+        <Link to="/warehouse" className="btn btn-primary btn-block">
+          Склад
         </Link>
       </ListGroup.Item>
       <ListGroup.Item as='li'>

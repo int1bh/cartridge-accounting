@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Col, Row, Button } from "react-bootstrap";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
@@ -18,16 +18,11 @@ export const Settings = () => {
   useEffect(() => dispatch(viewSubdivision()));
   useEffect(() => dispatch(viewModel()))
 
-  // function ControlledTabs() {
-  //   const [key, setKey] = useState('home');
-
   return (
     <div>
       <div className="spacer"></div>
       <Tabs
         id="controlled-tab-example"
-        // activeKey={key}
-        // onSelect={(k) => setKey(k)}
       >
         <Tab eventKey="home" title="Редактор моделей картриджей">
           <Row>
