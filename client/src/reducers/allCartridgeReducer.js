@@ -3,6 +3,6 @@ export const allCartridgeReducer = (state, action) => {        //редюсер 
     return state
 }
 
-// fetch('http://localhost:5000/api/base')
+// fetch('/api/base')
 //     .then(response => response.json())
 //     .then(json => initialState.allCartridges = json)

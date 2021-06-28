@@ -27,11 +27,11 @@ class FormModelCartridge extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     event.target.reset();
-
-    let sub = {modelName: this.state.modelName, color: this.state.color, printers: this.state.printers.split(/[\n]|,/)}
+    let sub = this.state
+    // let sub = {modelName: this.state.modelName, color: this.state.color, printers: this.state.printers} //.split(/[\n]|,/)
     
     async function addCartridgeModel() {
-      let response = await fetch("http://localhost:5000/api/addmodel", {
+      let response = await fetch("/api/addmodel", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(sub),
@@ -43,7 +43,7 @@ class FormModelCartridge extends React.Component {
     addCartridgeModel();
     this.setState( { modelName: "",
                     color: "",
-                    printers: []
+                    printers: ""
                    }
       );
   }

@@ -27,7 +27,7 @@ class FormSubdivision extends React.Component {
     let sub = this.state;
 
     async function addSubdivision() {
-      let response = await fetch("http://localhost:5000/api/addsubdivision", {
+      let response = await fetch("/api/addsubdivision", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(sub),

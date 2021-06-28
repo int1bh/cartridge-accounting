@@ -4,7 +4,7 @@ const schema = new Schema(
   {
     modelName: { type: String, required: true, unique: true },        //модель картриджа
     color: { type: String, required: true },                          //цвет картриджа
-    printers: [String],                                               //где используется
+    printers: { type: String}                                               //где используется
   },
   { versionKey: false }
 );

@@ -10,17 +10,8 @@ export const Monitor = (props) => {
     
   return (
     <div>
-      <div>
-        <div className="row s1">
-        <ul className="right">
-            <li><button
-            onClick={() => dispatch(viewSubdivision())}
-            >click</button></li>
-        <li><a href="#!" className="btn-floating" ><i className="medium material-icons">autorenew</i></a></li>
-      </ul>
-        </div>
-      </div>
-      
+      <h1>Монитор</h1>
+      <p>Страница в разработке</p>
     </div>
   );
 };

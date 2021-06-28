@@ -1,9 +1,17 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import TableColumnsCartridge from './TableColumnsCartridge';
+import { useDispatch } from "react-redux";
+import {getModelState} from '../actions/modelActions'
 
 
 const TableCartridge = ( {modelCartridges} ) => {
+  const dispatch = useDispatch();
+  useEffect(
+    
+    () => dispatch(getModelState())
+  )
     return (
         <div className="scrolled">
           <div className="spacer"></div>

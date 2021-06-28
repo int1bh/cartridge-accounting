@@ -1,1 +1,7 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+
+svg {
+    border: 2px solid black;
+    width: 200px;
+    height: 90px;
+}

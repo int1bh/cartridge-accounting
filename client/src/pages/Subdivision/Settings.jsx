@@ -30,12 +30,12 @@ export const Settings = () => {
               <div className="spacer"></div>
               <FormModelCartridge />
               <hr />
-              <button
+              <Button
                 onClick={() => dispatch(viewModel())}
                 className="btn btn-primary"
               >
                 Обновить список
-              </button>
+              </Button>
             </Col>
             <Col sm={8}>
             <div className="spacer"></div>

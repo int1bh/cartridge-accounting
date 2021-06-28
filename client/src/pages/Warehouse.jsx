@@ -2,28 +2,37 @@ import React from 'react'
 import { Col, Row, Button } from "react-bootstrap";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import FormAddCartridge from "../component/FormAddCartridge"
+import { connect } from "react-redux"
 
-export const Warehouse = () => {
+export const Warehouse = ({modelCartridges}) => {
+  //console.log(modelCartridges);
     return (
         <div>
           <div className="spacer"></div>
           <Tabs
             id="controlled-tab-example"
-            // activeKey={key}
-            // onSelect={(k) => setKey(k)}
           >
-            <Tab eventKey="home" title="Редактор моделей картриджей">
+            <Tab eventKey="warehouse" title="Завести картриджи на склад">
+              <Row>
+                <Col>
+                  <div className="spacer"></div>
+                  <FormAddCartridge modelCartridges={modelCartridges}/>
+                </Col>
+              </Row>
+            </Tab>
+            <Tab eventKey="trash" title="Утилизировать картриджи">
               <Row>
                 <Col sm={4}>
                   <div className="spacer"></div>
                   
                   <hr />
-                  <button
+                  <Button
                     onClick={() => alert("click")}
                     className="btn btn-primary"
                   >
                     Обновить список
-                  </button>
+                  </Button>
                 </Col>
                 <Col sm={8}>
                 <div className="spacer"></div>
@@ -36,4 +45,10 @@ export const Warehouse = () => {
     )
 }
 
-export default Warehouse
+const mapStateToProps = state => {
+  return {
+    modelCartridges: state.modelCartridges.modelCartridges
+  }
+}
+
+export default connect(mapStateToProps)(Warehouse)

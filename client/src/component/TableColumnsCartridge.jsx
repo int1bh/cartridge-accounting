@@ -5,19 +5,19 @@ import { viewModel } from "../actions/modelActions";
 
 const TableColumnsCartridge = ({ modelName, color, printers }) => {
   const dispatch = useDispatch();
-  function dsp() {
+  function dspm() {
     return dispatch(viewModel());
   }
-  const btnRemoveSub = async () => {
-    let response = await fetch("http://localhost:5000/api/dropmodel", {
+  const btnRemoveModel = async () => {
+    let response = await fetch("/api/dropmodel", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ modelName }),
     });
-
+console.log(modelName);
     let result = await response.json();
     //window.M.toast({ html: result.message, classes: "rounded" });
-    dsp();
+    dspm();
   };
 
   return (
@@ -29,7 +29,7 @@ const TableColumnsCartridge = ({ modelName, color, printers }) => {
         <td>
           <Button
             variant="danger"
-            onClick={btnRemoveSub}
+            onClick={btnRemoveModel}
             className="btn waves-effect waves-light red"
           >
             Удалить
