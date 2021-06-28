@@ -1,7 +1,13 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
-svg {
+canvas {
     border: 2px solid black;
     width: 200px;
     height: 90px;
+
+}
+
+.print {
+    width: 800px;
+    height: 1160px;
 }

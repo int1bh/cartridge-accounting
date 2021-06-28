@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Row, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form"
 import jsbarcode from "jsbarcode"
+import printJS from 'print-js'
 
 
 class FormADDCartridge extends React.Component {
@@ -14,6 +15,18 @@ class FormADDCartridge extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onChangeQuantity = this.onChangeQuantity.bind(this);
+  }
+
+
+  onChangeQuantity(e) {
+    let value = e.target.value;
+    if(value > 44) {
+      value = 44
+    }
+      this.setState({
+      quantity: value
+    });
   }
 
   handleChange(event) {
@@ -27,13 +40,14 @@ class FormADDCartridge extends React.Component {
   }
 
   barcodeGenerate() {
+    
     let result = this.state;
     let barcodes = []
     let barcodesCode = []
     const JSBARCODE = jsbarcode;
       
     for (let i = 0; i< result.quantity; i++) {
-      barcodes.push(<svg classname={"barcode"+i}></svg>)
+      barcodes.push(<canvas classname={"barcode"+i}></canvas>)
       let random = (this.state.modelName).substring(0,3)+Math.ceil((Math.random(5478)*10000000000))
       barcodesCode.push(random)
       JSBARCODE(`.barcode`+i, random)
@@ -46,6 +60,9 @@ class FormADDCartridge extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+ 
+    
+    printJS({printable: 'print', type: 'html', style: 'width:800px;height:1160px;margin-bottom:20px;', repeatTableHeader: false, documentTitle: this.state.modelName})
 
     // let cartridge = this.state
         
@@ -71,61 +88,53 @@ class FormADDCartridge extends React.Component {
   render() {
     const model = this.props.modelCartridges
     const barcode = [
-    <svg className="barcode0"></svg>,
-    <svg className="barcode1"></svg>,
-    <svg className="barcode2"></svg>,
-    <svg className="barcode3"></svg>,
-    <svg className="barcode4"></svg>,
-    <svg className="barcode5"></svg>,
-    <svg className="barcode6"></svg>,
-    <svg className="barcode7"></svg>,
-    <svg className="barcode8"></svg>,
-    <svg className="barcode9"></svg>,
-    <svg className="barcode10"></svg>,
-    <svg className="barcode11"></svg>,
-    <svg className="barcode12"></svg>,
-    <svg className="barcode13"></svg>,
-    <svg className="barcode14"></svg>,
-    <svg className="barcode15"></svg>,
-    <svg className="barcode16"></svg>,
-    <svg className="barcode17"></svg>,
-    <svg className="barcode18"></svg>,
-    <svg className="barcode19"></svg>,
-    <svg className="barcode20"></svg>,
-    <svg className="barcode21"></svg>,
-    <svg className="barcode22"></svg>,
-    <svg className="barcode23"></svg>,
-    <svg className="barcode24"></svg>,
-    <svg className="barcode25"></svg>,
-    <svg className="barcode26"></svg>,
-    <svg className="barcode27"></svg>,
-    <svg className="barcode28"></svg>,
-    <svg className="barcode29"></svg>,
-    <svg className="barcode30"></svg>,
-    <svg className="barcode31"></svg>,
-    <svg className="barcode32"></svg>,
-    <svg className="barcode33"></svg>,
-    <svg className="barcode34"></svg>,
-    <svg className="barcode35"></svg>,
-    <svg className="barcode36"></svg>,
-    <svg className="barcode37"></svg>,
-    <svg className="barcode38"></svg>,
-    <svg className="barcode39"></svg>,
-    <svg className="barcode40"></svg>,
-    <svg className="barcode41"></svg>,
-    <svg className="barcode42"></svg>,
-    <svg className="barcode43"></svg>,
-    <svg className="barcode44"></svg>,
-    <svg className="barcode45"></svg>,
-    <svg className="barcode46"></svg>,
-    <svg className="barcode47"></svg>,
-    <svg className="barcode48"></svg>,
-    <svg className="barcode49"></svg>,
-    <svg className="barcode50"></svg>
+    <canvas className="barcode0"></canvas>,
+    <canvas className="barcode1"></canvas>,
+    <canvas className="barcode2"></canvas>,
+    <canvas className="barcode3"></canvas>,
+    <canvas className="barcode4"></canvas>,
+    <canvas className="barcode5"></canvas>,
+    <canvas className="barcode6"></canvas>,
+    <canvas className="barcode7"></canvas>,
+    <canvas className="barcode8"></canvas>,
+    <canvas className="barcode9"></canvas>,
+    <canvas className="barcode10"></canvas>,
+    <canvas className="barcode11"></canvas>,
+    <canvas className="barcode12"></canvas>,
+    <canvas className="barcode13"></canvas>,
+    <canvas className="barcode14"></canvas>,
+    <canvas className="barcode15"></canvas>,
+    <canvas className="barcode16"></canvas>,
+    <canvas className="barcode17"></canvas>,
+    <canvas className="barcode18"></canvas>,
+    <canvas className="barcode19"></canvas>,
+    <canvas className="barcode20"></canvas>,
+    <canvas className="barcode21"></canvas>,
+    <canvas className="barcode22"></canvas>,
+    <canvas className="barcode23"></canvas>,
+    <canvas className="barcode24"></canvas>,
+    <canvas className="barcode25"></canvas>,
+    <canvas className="barcode26"></canvas>,
+    <canvas className="barcode27"></canvas>,
+    <canvas className="barcode28"></canvas>,
+    <canvas className="barcode29"></canvas>,
+    <canvas className="barcode30"></canvas>,
+    <canvas className="barcode31"></canvas>,
+    <canvas className="barcode32"></canvas>,
+    <canvas className="barcode33"></canvas>,
+    <canvas className="barcode34"></canvas>,
+    <canvas className="barcode35"></canvas>,
+    <canvas className="barcode36"></canvas>,
+    <canvas className="barcode37"></canvas>,
+    <canvas className="barcode38"></canvas>,
+    <canvas className="barcode39"></canvas>,
+    <canvas className="barcode40"></canvas>,
+    <canvas className="barcode41"></canvas>,
+    <canvas className="barcode42"></canvas>,
+    <canvas className="barcode43"></canvas>    
   ]
-    // console.log(barcode);
-    //let arr = barcode.map((el) => el._renderProperties[0].element.classList[0])
-    //console.log("map", arr[0]);
+    
+
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Row className="align-items-center">
@@ -138,7 +147,7 @@ class FormADDCartridge extends React.Component {
           </Col>
           <Col>
           <Form.Label htmlFor="quantity" srOnly>Количество</Form.Label>
-          <Form.Control onChange={this.handleChange} name="quantity" id="quantity" placeholder="Количество"/>
+          <Form.Control onChange={this.onChangeQuantity} name="quantity" id="quantity" placeholder="Кол-во не более 44"/>
           </Col>
           <Col sm={2}>
           <Button onClick={this.barcodeGenerate.bind(this)}>Генерировать</Button>
@@ -151,12 +160,9 @@ class FormADDCartridge extends React.Component {
         </Form.Row>
         <hr />
         <Form.Row>
-          <Col>
-          <span>{barcode}</span>
-          </Col>
-          
-          
-          
+          <div className="print" id="print">
+          {barcode}
+          </div>
         </Form.Row>
       </Form>
     );
