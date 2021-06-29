@@ -21,8 +21,8 @@ class FormADDCartridge extends React.Component {
 
   onChangeQuantity(e) {
     let value = e.target.value;
-    if(value > 44) {
-      value = 44
+    if(value > 56) {
+      value = 56
     }
       this.setState({
       quantity: value
@@ -58,11 +58,20 @@ class FormADDCartridge extends React.Component {
     
   }
 
+  printHandler() {
+    printJS({
+      printable: 'print',
+      type: 'html', 
+      repeatTableHeader: false, 
+      documentTitle: this.state.modelName
+    })
+  }
+
   handleSubmit(event) {
     event.preventDefault();
  
+    console.log(this.state);   
     
-    printJS({printable: 'print', type: 'html', style: 'width:800px;height:1160px;margin-bottom:20px;', repeatTableHeader: false, documentTitle: this.state.modelName})
 
     // let cartridge = this.state
         
@@ -82,7 +91,7 @@ class FormADDCartridge extends React.Component {
     //                 printers: ""
     //                }
     //   );
-    console.log(this.state);
+  
   }
 
   render() {
@@ -131,7 +140,20 @@ class FormADDCartridge extends React.Component {
     <canvas className="barcode40"></canvas>,
     <canvas className="barcode41"></canvas>,
     <canvas className="barcode42"></canvas>,
-    <canvas className="barcode43"></canvas>    
+    <canvas className="barcode43"></canvas>,
+    <canvas className="barcode44"></canvas>,
+    <canvas className="barcode45"></canvas>,
+    <canvas className="barcode46"></canvas>,
+    <canvas className="barcode47"></canvas>,
+    <canvas className="barcode48"></canvas>,
+    <canvas className="barcode49"></canvas>,
+    <canvas className="barcode50"></canvas>,
+    <canvas className="barcode51"></canvas>,
+    <canvas className="barcode52"></canvas>,
+    <canvas className="barcode53"></canvas>,
+    <canvas className="barcode54"></canvas>,
+    <canvas className="barcode55"></canvas>,
+    <canvas className="barcode56"></canvas>   
   ]
     
 
@@ -147,11 +169,12 @@ class FormADDCartridge extends React.Component {
           </Col>
           <Col>
           <Form.Label htmlFor="quantity" srOnly>Количество</Form.Label>
-          <Form.Control onChange={this.onChangeQuantity} name="quantity" id="quantity" placeholder="Кол-во не более 44"/>
+          <Form.Control onChange={this.onChangeQuantity} name="quantity" id="quantity" placeholder="Кол-во не более 56"/>
           </Col>
           <Col sm={2}>
           <Button onClick={this.barcodeGenerate.bind(this)}>Генерировать</Button>
           </Col>
+          <Col sm={2}><Button onClick={this.printHandler.bind(this)}>Печать</Button></Col>
           <Col>
           <Button variant="primary" type="submit">
           Добавить

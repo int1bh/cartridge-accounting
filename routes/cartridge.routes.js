@@ -28,14 +28,9 @@ router.get('/getall', async (req, res) => {
 
 router.post('/addcartridge', async (req, res) => {
     try {
-        const {modelName, registered, barcode, issued, issuedHistory, toRefuel} = req.body //получаем поля с фронтенда в теле запроса
-
-        const cartridge = new Cartridge({modelName, registered, barcode, issued, issuedHistory, toRefuel})
-
-        await cartridge.save()
-
-        res.status(201).json({message: "Добавлен картридж"})
-
+        await Cartridge.insertMany(req.body)
+        
+        res.status(201).json({message: `Добавлено картриджей: ${req.body.length} шт.`})
     } catch (e) {
         res.status(500).json({message: e.message})
     }
