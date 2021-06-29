@@ -12,3 +12,7 @@ canvas {
     width: 800px;
     height: 1160px;
 }
+
+.del {
+    margin-right: 15px;
+}
