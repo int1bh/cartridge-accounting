@@ -1,12 +1,19 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Col, Row, Button } from "react-bootstrap";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import FormAddCartridge from "../component/FormAddCartridge"
-import { connect } from "react-redux"
+import { connect, useDispatch } from "react-redux"
+import { viewSubdivision } from "../actions/subdivisionActions";
+import { viewModel } from "../actions/modelActions";
 
 export const Warehouse = ({modelCartridges}) => {
-  //console.log(modelCartridges);
+// const dispatch = useDispatch();
+
+//   useEffect(() => dispatch(viewSubdivision()));
+//   useEffect(() => dispatch(viewModel()))
+
+  
     return (
         <div>
           <div className="spacer"></div>

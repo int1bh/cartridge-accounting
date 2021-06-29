@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Container, Col, Row} from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
 import Menu from './component/Menu';
 import Content from './component/Content'
-
+import { viewSubdivision } from "./actions/subdivisionActions";
+import { viewModel } from "./actions/modelActions";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(viewSubdivision()));
+  useEffect(() => dispatch(viewModel()))
+
   return (
     <Container fluid>
       <Row>
