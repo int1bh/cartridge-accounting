@@ -8,7 +8,7 @@ class FormADDCartridge extends React.Component {
   constructor(props) {
     super(props);
     this.clearRef = React.createRef();
-    this.state = { modelName: "", quantity: "", barcode: [], print: true, addButton: true };
+    this.state = { modelName: "", quantity: "", barcode: [], generate: false, print: true, addButton: true };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -48,7 +48,7 @@ class FormADDCartridge extends React.Component {
         Math.ceil(Math.random(5478) * 10000000000);
       barcodesCode.push(random);
       JSBARCODE(`.barcode` + i, random);
-      this.setState({ barcode: barcodesCode, print: false });
+      this.setState({ barcode: barcodesCode, generate: true, print: false });
     }
   }
 
@@ -86,7 +86,7 @@ class FormADDCartridge extends React.Component {
     }
 
     addCartridge();
-    this.setState({ modelName: "", quantity: "", barcode: [], print: true, addButton: true });
+    this.setState({ modelName: "", quantity: "", barcode: [], generate: false, print: true, addButton: true });
     console.log(this.clearRef)
     this.clearRef.current.innerHTML = "<canvas class=\"barcode0\"></canvas><canvas class=\"barcode1\"></canvas><canvas class=\"barcode2\"></canvas><canvas class=\"barcode3\"></canvas><canvas class=\"barcode4\"></canvas><canvas class=\"barcode5\"></canvas><canvas class=\"barcode6\"></canvas><canvas class=\"barcode7\"></canvas><canvas class=\"barcode8\"></canvas><canvas class=\"barcode9\"></canvas><canvas class=\"barcode10\"></canvas><canvas class=\"barcode11\"></canvas><canvas class=\"barcode12\"></canvas><canvas class=\"barcode13\"></canvas><canvas class=\"barcode14\"></canvas><canvas class=\"barcode15\"></canvas><canvas class=\"barcode16\"></canvas><canvas class=\"barcode17\"></canvas><canvas class=\"barcode18\"></canvas><canvas class=\"barcode19\"></canvas><canvas class=\"barcode20\"></canvas><canvas class=\"barcode21\"></canvas><canvas class=\"barcode22\"></canvas><canvas class=\"barcode23\"></canvas><canvas class=\"barcode24\"></canvas><canvas class=\"barcode25\"></canvas><canvas class=\"barcode26\"></canvas><canvas class=\"barcode27\"></canvas><canvas class=\"barcode28\"></canvas><canvas class=\"barcode29\"></canvas><canvas class=\"barcode30\"></canvas><canvas class=\"barcode31\"></canvas><canvas class=\"barcode32\"></canvas><canvas class=\"barcode33\"></canvas><canvas class=\"barcode34\"></canvas><canvas class=\"barcode35\"></canvas><canvas class=\"barcode36\"></canvas><canvas class=\"barcode37\"></canvas><canvas class=\"barcode38\"></canvas><canvas class=\"barcode39\"></canvas><canvas class=\"barcode40\"></canvas><canvas class=\"barcode41\"></canvas><canvas class=\"barcode42\"></canvas><canvas class=\"barcode43\"></canvas><canvas class=\"barcode44\"></canvas><canvas class=\"barcode45\"></canvas><canvas class=\"barcode46\"></canvas><canvas class=\"barcode47\"></canvas><canvas class=\"barcode48\"></canvas><canvas class=\"barcode49\"></canvas><canvas class=\"barcode50\"></canvas><canvas class=\"barcode51\"></canvas><canvas class=\"barcode52\"></canvas><canvas class=\"barcode53\"></canvas><canvas class=\"barcode54\"></canvas><canvas class=\"barcode55\"></canvas><canvas class=\"barcode56\"></canvas>"
   }
@@ -186,7 +186,7 @@ class FormADDCartridge extends React.Component {
           </Col>
 
           <div className="del">
-            <Button onClick={this.barcodeGenerate.bind(this)} variant="info">
+            <Button onClick={this.barcodeGenerate.bind(this)} variant="info" disabled={this.state.generate}>
               Генерировать штрихкод
             </Button>
           </div>
