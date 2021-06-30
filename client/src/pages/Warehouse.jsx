@@ -30,12 +30,7 @@ export const Warehouse = ({ modelCartridges, trashCandidate }) => {
             <Col sm={12}>
               {/* <div className="spacer"></div> */}
               <hr />
-              <Button
-                variant="danger"
-                onClick={() => console.log("На удаление:", trashCandidate)}
-              >
-                Удалить картриджи из базы
-              </Button>
+              
             </Col>
           </Row>
         </Tab>
