@@ -1,54 +1,54 @@
-import React from 'react'
+import React from "react";
 import { Col, Row, Button } from "react-bootstrap";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import FormAddCartridge from "../component/FormAddCartridge"
-import { connect } from "react-redux"
+import FormAddCartridge from "../component/FormAddCartridge";
+import { connect } from "react-redux";
+import Trash from "../component/Trash";
 
-export const Warehouse = ({modelCartridges}) => {
-
-    return (
-        <div>
-          <div className="spacer"></div>
-          <Tabs
-            id="controlled-tab-example"
-          >
-            <Tab eventKey="warehouse" title="Завести картриджи на склад">
-              <Row>
-                <Col>
-                  <div className="spacer"></div>
-                  <FormAddCartridge modelCartridges={modelCartridges}/>
-                </Col>
-              </Row>
-            </Tab>
-            <Tab eventKey="trash" title="Утилизировать картриджи">
-              <Row>
-                <Col sm={4}>
-                  <div className="spacer"></div>
-                  
-                  <hr />
-                  <Button
-                    onClick={() => alert("click")}
-                    className="btn btn-primary"
-                  >
-                    Обновить список
-                  </Button>
-                </Col>
-                <Col sm={8}>
-                <div className="spacer"></div>
-                  
-                </Col>
-              </Row>
-            </Tab>
-        </Tabs>
+export const Warehouse = ({ modelCartridges, trashCandidate }) => {
+  return (
+    <div>
+      <div className="spacer"></div>
+      <Tabs id="controlled-tab-example">
+        <Tab eventKey="warehouse" title="Завести картриджи на склад">
+          <Row>
+            <Col>
+              <div className="spacer"></div>
+              <FormAddCartridge modelCartridges={modelCartridges} />
+            </Col>
+          </Row>
+        </Tab>
+        <Tab eventKey="trash" title="Утилизировать картриджи">
+          <Row className="justify-content-md-center">
+            <Col sm={8}>
+              <div className="spacer"></div>
+              <Trash />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={12}>
+              {/* <div className="spacer"></div> */}
+              <hr />
+              <Button
+                variant="danger"
+                onClick={() => console.log("На удаление:", trashCandidate)}
+              >
+                Удалить картриджи из базы
+              </Button>
+            </Col>
+          </Row>
+        </Tab>
+      </Tabs>
     </div>
-    )
-}
+  );
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    modelCartridges: state.modelCartridges.modelCartridges
-  }
-}
+    modelCartridges: state.modelCartridges.modelCartridges,
+    trashCandidate: state.trashCandidate.trashCandidate
+  };
+};
 
-export default connect(mapStateToProps)(Warehouse)
+export default connect(mapStateToProps)(Warehouse);

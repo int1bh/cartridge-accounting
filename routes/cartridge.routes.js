@@ -1,5 +1,6 @@
 const { Router, json } = require('express')
 const Cartridge = require('../models/Cartridge')
+const TrashHistory = require('../models/TrashHistory')
 const router = Router()
 
 
@@ -21,6 +22,21 @@ router.get('/getall', async (req, res) => {
     }
 })
 
+// ==================================================================================
+//                           Получение картриджа по штрихкоду
+// ==================================================================================
+
+router.get('/getone', async (req, res) => {
+    try {
+            const base = await Cartridge.find({"barcode": req.query.barcode})
+            res.status(201).json(base)
+            console.log(base);
+        
+    } catch (e) {
+        res.status(500).json({message: e.message})
+    }
+})
+
 
 // ===================================================================================
 //                               Добавление картриджа в базу
@@ -31,6 +47,37 @@ router.post('/addcartridge', async (req, res) => {
         await Cartridge.insertMany(req.body)
         
         res.status(201).json({message: `Добавлено картриджей: ${req.body.length} шт.`})
+    } catch (e) {
+        res.status(500).json({message: e.message})
+    }
+})
+
+
+// ===================================================================================
+//                      Внесение информации по удаленным картриджам
+// ===================================================================================
+
+router.post('/trash', async (req, res) => {
+    try {
+        await TrashHistory.insertMany(req.body)
+        
+        res.status(201).json({message: `Информация внесена`})
+    } catch (e) {
+        res.status(500).json({message: e.message})
+    }
+})
+
+
+// ==================================================================================
+//                      Получение информации по удаленным картриджам
+// ==================================================================================
+
+router.get('/gettrash', async (req, res) => {
+    try {
+            const base = await TrashHistory.find().limit(+req.query.limit)
+            res.status(201).json(base)
+            console.log(base);
+        
     } catch (e) {
         res.status(500).json({message: e.message})
     }
