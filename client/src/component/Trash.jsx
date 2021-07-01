@@ -6,14 +6,18 @@ import { getCartridge } from "../actions/trashActions";
 function Trash() {
   const [state, setState] = useState({ barcode: "" });
   const dispatch = useDispatch();
+  let barcodesArray = [];
+  
 
   function handleChange(event) {
-    setState({ [event.target.name]: event.target.value });
+    setState({ [event.target.name]: event.target.value })
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     event.target.reset();
+    barcodesArray.push(state.barcode)
+    console.log("barcodes:", barcodesArray)
     dispatch(getCartridge(state.barcode));
     setState({ barcode: "" });
   }
@@ -31,7 +35,7 @@ function Trash() {
           />
         </Col>
         <Col>
-          <Button variant="danger" onClick={() => console.log("На удаление:")}>
+          <Button variant="danger" onClick={() => console.log("barcodes:", barcodesArray)}>
             Удалить картриджи из базы
           </Button>
         </Col>

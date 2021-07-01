@@ -8,7 +8,6 @@ import Trash from "../component/Trash";
 import TrashContent from "../component/TrashContent";
 
 export const Warehouse = ({ modelCartridges, trashCandidate, loadings }) => {
-  console.log("test", loadings);
   return (
     <div>
       <div className="spacer"></div>

@@ -1,9 +1,6 @@
 import React from "react";
 
-const TableColumnsTrash = ({ modelName, barcode, issuedHistory }) => {
-    console.log("issued", issuedHistory)
-    issuedHistory.map(issuedHistory => <td>{issuedHistory.date} {issuedHistory.subdivision}</td>)
-    
+const TableColumnsTrash = ({ modelName, barcode, issuedHistory }) => {    
   return (
     <React.Fragment>
       <tr>

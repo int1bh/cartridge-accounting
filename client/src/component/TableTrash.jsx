@@ -4,7 +4,6 @@ import TableColumnsTrash from './TableColumnsTrash'
 
 const TableTrash = ( data ) => {
     const arr = data.data;
-    console.log("arr",arr);
     return (
         <div className="scrolled">
           <div className="spacer"></div>
