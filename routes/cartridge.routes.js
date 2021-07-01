@@ -30,7 +30,6 @@ router.get('/getone', async (req, res) => {
     try {
             const base = await Cartridge.find({"barcode": req.query.barcode})
             res.status(201).json(base)
-            console.log(base);
         
     } catch (e) {
         res.status(500).json({message: e.message})
@@ -76,7 +75,6 @@ router.get('/gettrash', async (req, res) => {
     try {
             const base = await TrashHistory.find().limit(+req.query.limit)
             res.status(201).json(base)
-            console.log(base);
         
     } catch (e) {
         res.status(500).json({message: e.message})

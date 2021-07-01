@@ -2,7 +2,7 @@ const {Schema, model} = require('mongoose')
 
 const schema = new Schema({
         modelName: {type: String, required: true},                       //наименование картриджа
-        registered: {type: Date, default: Date.now()},                   //дата регистрации картриджа
+        registered: {type: String, default: Date.now().toLocaleString()},                   //дата регистрации картриджа
         barcode: {type: String, required: true, unique: true},           //штрихкод
         issued: {type: Boolean, default: false},                         //выдан или нет. Если false, то картридж на складе
         issuedHistory: [{subdivision: {type: String, default: null},     //история выдачи

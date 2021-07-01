@@ -16,3 +16,25 @@ canvas {
 .del {
     margin-right: 15px;
 }
+
+.no_content {
+    display: flex;
+    height: 70vh;
+    padding-left: 30%;
+    align-items: center;
+    color: #aba3a3;
+    font-size: 20px;
+}
+
+.no_content_center {
+   padding-left: 40%;
+}
+
+.cheaps {
+    display: inline-block;
+    border: 1px solid #cccccc;
+    margin: 0px 10px 0px 0px;
+    padding: 4px 8px;
+    border-radius: 10px;
+    background-color: #cccccc;
+}

@@ -1,8 +1,10 @@
-import {GET_TRASHED_CARTRIDGE, LOADING} from "../actions/trashActions"
+import {GET_TRASHED_CARTRIDGE, LOADED, LOADING, ERROR} from "../actions/trashActions"
 
 const initialState = {
   trashCandidate: [],
-  isLoading: true
+  isLoading: false,
+  isNoContent: true,
+  isError: false
 }
 
 export function trashCartridgeReducer(state = initialState, action) {
@@ -13,8 +15,16 @@ export function trashCartridgeReducer(state = initialState, action) {
         }
         case LOADING:
         return {
-            ...state, isLoading: false
+            ...state, isLoading: true, isNoContent: false
         }
+        case LOADED:
+            return {
+                ...state, isLoading: false, isNoContent:false
+            }
+        case ERROR:
+            return {
+                ...state, isLoading: false, isNoContent:false, isError: true
+            }
         default:
         return state
     }

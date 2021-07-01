@@ -5,8 +5,10 @@ import Tabs from "react-bootstrap/Tabs";
 import FormAddCartridge from "../component/FormAddCartridge";
 import { connect } from "react-redux";
 import Trash from "../component/Trash";
+import TrashContent from "../component/TrashContent";
 
-export const Warehouse = ({ modelCartridges, trashCandidate }) => {
+export const Warehouse = ({ modelCartridges, trashCandidate, loadings }) => {
+  console.log("test", loadings);
   return (
     <div>
       <div className="spacer"></div>
@@ -28,9 +30,8 @@ export const Warehouse = ({ modelCartridges, trashCandidate }) => {
           </Row>
           <Row>
             <Col sm={12}>
-              {/* <div className="spacer"></div> */}
               <hr />
-              
+              <TrashContent trashCandidate={{trashCandidate}.trashCandidate} states={loadings} />
             </Col>
           </Row>
         </Tab>
@@ -42,7 +43,8 @@ export const Warehouse = ({ modelCartridges, trashCandidate }) => {
 const mapStateToProps = (state) => {
   return {
     modelCartridges: state.modelCartridges.modelCartridges,
-    trashCandidate: state.trashCandidate.trashCandidate
+    trashCandidate: state.trashCandidate.trashCandidate,
+    loadings: {isLoading: state.trashCandidate.isLoading, isNoContent: state.trashCandidate.isNoContent, isError: state.trashCandidate.isError}
   };
 };
 
