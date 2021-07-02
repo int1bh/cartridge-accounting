@@ -24,7 +24,7 @@ export const Warehouse = ({ modelCartridges, trashCandidate, loadings }) => {
           <Row className="justify-content-md-center">
             <Col sm={8}>
               <div className="spacer"></div>
-              <Trash />
+              <Trash trashCandidate={{trashCandidate}.trashCandidate} />
             </Col>
           </Row>
           <Row>

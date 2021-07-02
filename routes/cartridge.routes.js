@@ -29,6 +29,11 @@ router.get('/getall', async (req, res) => {
 router.get('/getone', async (req, res) => {
     try {
             const base = await Cartridge.find({"barcode": req.query.barcode})
+            if(base.length == 0) {
+                throw new Error("Не найдено")
+            } else {
+                res.status(201).json(base)
+            }
             res.status(201).json(base)
         
     } catch (e) {
@@ -173,11 +178,9 @@ router.put('/returnrefuel', async (req, res) => {
 
 router.delete('/dropcartridge', async (req, res) => {
     try {
-        const {barcode} = req.body //получаем поля с фронтенда в теле запроса
-
-        await Cartridge.deleteMany({barcode: {$in: [...barcode]}})
+        await Cartridge.deleteMany({barcode: {$in: [...req.body]}})
         
-        res.status(201).json({message: 'Успешно удалено'})
+        res.status(201).json({message: 'Картриджи удалены'})
     } catch (e) {
         res.status(500).json({message: e.message})
     }

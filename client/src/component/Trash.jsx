@@ -1,25 +1,38 @@
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { getCartridge } from "../actions/trashActions";
+import { getCartridge, CLEAR } from "../actions/trashActions";
 
-function Trash() {
+function Trash({ trashCandidate, states }) {
   const [state, setState] = useState({ barcode: "" });
   const dispatch = useDispatch();
-  let barcodesArray = [];
-  
 
   function handleChange(event) {
-    setState({ [event.target.name]: event.target.value })
+    setState({ [event.target.name]: event.target.value });
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     event.target.reset();
-    barcodesArray.push(state.barcode)
-    console.log("barcodes:", barcodesArray)
     dispatch(getCartridge(state.barcode));
     setState({ barcode: "" });
+  }
+
+  function trashCartridge() {
+    let trashedItems = Array.from(
+      new Set(trashCandidate.map((trashCandidate) => trashCandidate.barcode))
+    );
+    async function trash() {
+      let response = await fetch("/api/dropcartridge", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(trashedItems),
+      });
+      let result = await response.json();
+      alert(result.message);
+      dispatch({ type: CLEAR });
+    }
+    trash();
   }
 
   return (
@@ -35,7 +48,7 @@ function Trash() {
           />
         </Col>
         <Col>
-          <Button variant="danger" onClick={() => console.log("barcodes:", barcodesArray)}>
+          <Button variant="danger" onClick={trashCartridge}>
             Удалить картриджи из базы
           </Button>
         </Col>

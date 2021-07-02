@@ -17,10 +17,11 @@ const TrashContent = ({ trashCandidate, states }) => {
         <Spinner animation="border" variant="danger" />
       </div>
     );
-  } else if (!states.isLoading & !states.isNoContent) {
+  } else if (!states.isLoading & !states.isNoContent & !states.isError) {
     load = <TableTrash data={trashCandidate} />;
-  } else if (states.isError) {
-    alert = <Alert variant="danger">Все пропало</Alert>;
+  } else if (states.isError & !states.isLoading & !states.isNoContent) {
+    alert = <Alert variant="danger">Нет такого картриджа в базе</Alert>;
+    load = <TableTrash data={trashCandidate} />;
   } else {
     load = noContent;
   }
@@ -28,7 +29,6 @@ const TrashContent = ({ trashCandidate, states }) => {
   return (
     <Col sm={12}>
       {alert}
-      {/* {setTimeout(() => alert, 3000)}   */}
       {load}
     </Col>
   );
