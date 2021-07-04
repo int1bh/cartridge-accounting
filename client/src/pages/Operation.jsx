@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Row, Button } from "react-bootstrap";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
@@ -13,6 +13,7 @@ import ToRefuelContent from "../component/ToRefuelContent";
 import ToRefuelForm from "../component/ToRefuelForm";
 
 export const Operation = (subdivision) => {
+  useEffect(() => document.title = 'Учет картриджей - Операции')
   return (
     <div>
       <div className="spacer"></div>

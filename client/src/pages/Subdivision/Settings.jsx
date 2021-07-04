@@ -17,6 +17,7 @@ export const Settings = () => {
 
   useEffect(() => dispatch(viewSubdivision()));
   useEffect(() => dispatch(viewModel()))
+  useEffect(() => document.title = 'Учет картриджей - Настройки')
 
   return (
     <div>

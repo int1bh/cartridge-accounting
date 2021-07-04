@@ -36,7 +36,7 @@ function IssuedForm(subdivision) {
           />
         </Col>
         <Col>
-          <Button variant="danger" onClick={null}>
+          <Button variant="success" onClick={null}>
             Выдать
           </Button>
         </Col>

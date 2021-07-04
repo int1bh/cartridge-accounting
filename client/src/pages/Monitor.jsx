@@ -7,6 +7,8 @@ export const Monitor = (props) => {
     const dispatch = useDispatch()
     const sub = useSelector(state => state.subdivision.subdivision)
     //console.log(sub);
+
+    useEffect(() => document.title = 'Учет картриджей - Монитор')
     
   return (
     <div>

@@ -18,10 +18,10 @@ function ToRefuelForm() {
           />
         </Col>
         <Col>
-          <Button variant="danger"
+          <Button variant="success"
           // onClick={issueCartridge}
           >
-            Выдать
+            Отправить
           </Button>
         </Col>
       </Form.Row>

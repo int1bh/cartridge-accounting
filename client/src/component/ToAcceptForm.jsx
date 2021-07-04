@@ -18,10 +18,10 @@ function ToAcceptForm() {
           />
         </Col>
         <Col>
-          <Button variant="danger"
+          <Button variant="success"
           // onClick={issueCartridge}
           >
-            Выдать
+            Принять
           </Button>
         </Col>
       </Form.Row>
