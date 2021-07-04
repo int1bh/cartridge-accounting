@@ -36,8 +36,25 @@ function IssuedForm({ trashCandidate, states }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={null}>
       <Form.Row>
+      <Col sm={4}>
+            <Form.Label htmlFor="modelName" srOnly>
+              Модель картриджа
+            </Form.Label>
+            <Form.Control
+              onChange={null}
+              name="modelName"
+              id="modelName"
+              as="select"
+              defaultValue="Выберите отделение"
+            >
+              <option disabled>Выберите отделение</option>
+              {/* {model.map((model) => (
+                <option key={model._id}>{model.modelName}</option>
+              ))} */}
+            </Form.Control>
+          </Col>
         <Col>
           <Form.Label srOnly>Отсканируйте штрихкод</Form.Label>
           <Form.Control

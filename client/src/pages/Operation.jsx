@@ -2,7 +2,14 @@ import React from "react";
 import { Col, Row, Button } from "react-bootstrap";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import IssueFormContainer from "../component/IssueFormContainer";
+import FromRefuelContent from "../component/FromRefuelContent";
+import FromRefuelForm from "../component/FromRefuelForm";
+import IssueContent from "../component/IssueContent";
+import IssuedForm from "../component/IssuedForm";
+import ToAcceptContent from "../component/ToAcceptContent";
+import ToAcceptForm from "../component/ToAcceptForm";
+import ToRefuelContent from "../component/ToRefuelContent";
+import ToRefuelForm from "../component/ToRefuelForm";
 
 export const Operation = () => {
   return (
@@ -10,54 +17,58 @@ export const Operation = () => {
       <div className="spacer"></div>
       <Tabs id="controlled-tab-example">
         <Tab eventKey="give_out" title="Выдать">
-          <Row className="justify-content-md-center">
-            <Col sm={8}>
+          <Row>
+            <Col sm={12}>
               <div className="spacer"></div>
-              <IssueFormContainer />
+              <IssuedForm />
             </Col>
           </Row>
           <Row>
             <Col sm={12}>
               <hr />
+              <IssueContent />
             </Col>
           </Row>
         </Tab>
         <Tab eventKey="accept" title="Принять">
-          <Row className="justify-content-md-center">
+          <Row>
             <Col sm={8}>
               <div className="spacer"></div>
-              <IssueFormContainer />
+              <ToAcceptForm />
             </Col>
           </Row>
           <Row>
             <Col sm={12}>
               <hr />
+              <ToAcceptContent />
             </Col>
           </Row>
         </Tab>
         <Tab eventKey="empty" title="В заправку">
-          <Row className="justify-content-md-center">
+          <Row>
             <Col sm={8}>
               <div className="spacer"></div>
-              <IssueFormContainer />
+              <ToRefuelForm />
             </Col>
           </Row>
           <Row>
             <Col sm={12}>
               <hr />
+              <ToRefuelContent />
             </Col>
           </Row>
         </Tab>
         <Tab eventKey="refuel" title="Из заправки">
-          <Row className="justify-content-md-center">
+          <Row>
             <Col sm={8}>
               <div className="spacer"></div>
-              <IssueFormContainer />
+              <FromRefuelForm />
             </Col>
           </Row>
           <Row>
             <Col sm={12}>
               <hr />
+              <FromRefuelContent />
             </Col>
           </Row>
         </Tab>
