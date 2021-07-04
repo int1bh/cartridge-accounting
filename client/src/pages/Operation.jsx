@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Row, Button } from "react-bootstrap";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import { connect } from "react-redux";
 import FromRefuelContent from "../component/FromRefuelContent";
 import FromRefuelForm from "../component/FromRefuelForm";
 import IssueContent from "../component/IssueContent";
@@ -11,7 +12,7 @@ import ToAcceptForm from "../component/ToAcceptForm";
 import ToRefuelContent from "../component/ToRefuelContent";
 import ToRefuelForm from "../component/ToRefuelForm";
 
-export const Operation = () => {
+export const Operation = (subdivision) => {
   return (
     <div>
       <div className="spacer"></div>
@@ -20,7 +21,7 @@ export const Operation = () => {
           <Row>
             <Col sm={12}>
               <div className="spacer"></div>
-              <IssuedForm />
+              <IssuedForm subdivision={subdivision.subdivision}/>
             </Col>
           </Row>
           <Row>
@@ -77,4 +78,10 @@ export const Operation = () => {
   );
 };
 
-export default Operation;
+const mapStateToProps = (state) => {
+  return {
+    subdivision: state.subdivision.subdivision
+  }
+}
+
+export default connect(mapStateToProps)(Operation);

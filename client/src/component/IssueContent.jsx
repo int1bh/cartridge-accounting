@@ -9,4 +9,6 @@ function IssueContent() {
   );
 }
 
+
+
 export default IssueContent;
