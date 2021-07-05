@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Col, Row, Button } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { connect } from "react-redux";

@@ -11,7 +11,10 @@ function IssuedForm({subdivision, issueCandidate, subdivisionIs}) {
 
   let [state, setState] = useState({divisionName: "", barcode: ""})
 
-  //dispatch(insertSubdivision(state.divisionName))
+  function handleChangeList(event) {
+    event.persist();
+    dispatch(insertSubdivision(event.target.value))
+  }
 
   function handleChange(event) {
     event.persist();
@@ -54,9 +57,6 @@ function IssuedForm({subdivision, issueCandidate, subdivisionIs}) {
       dispatch({ type: CLEAR });
     }
     issue();
-
-    // console.log("issueItems", issueItems);
-    // console.log("body", body)
   }
 
   return (
@@ -67,7 +67,7 @@ function IssuedForm({subdivision, issueCandidate, subdivisionIs}) {
               Отделение
             </Form.Label>
             <Form.Control
-              onChange={handleChange}
+              onChange={handleChangeList}
               name="divisionName"
               id="divisionName"
               as="select"
