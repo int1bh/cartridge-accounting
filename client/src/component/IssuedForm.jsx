@@ -1,22 +1,75 @@
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { getCartridge, CLEAR } from "../actions/trashActions";
+import { getIssueCandidate, insertSubdivision, CLEAR } from "../actions/operationsActions";
 
-function IssuedForm(subdivision) {
+function IssuedForm({subdivision, issueCandidate, subdivisionIs}) {
   const subdibisionList = subdivision.subdivision
+  const dispatch = useDispatch()
+
+  
+
+  let [state, setState] = useState({divisionName: "", barcode: ""})
+
+  //dispatch(insertSubdivision(state.divisionName))
+
+  function handleChange(event) {
+    event.persist();
+    setState((prev) => ({
+      ...prev,
+      ...{
+        [event.target.name]: event.target.value,
+      },
+    }));
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    event.target.reset();
+    dispatch(getIssueCandidate(state.barcode));
+    dispatch(insertSubdivision(state.divisionName))
+    setState({ barcode: "" });
+  }
+
+  function issueCartridge() {
+    let issueItems = Array.from(
+      new Set(issueCandidate.map((issueCandidate) => issueCandidate.barcode))
+    );
+
+    let body = {
+      barcode: issueItems,
+      issued: true,
+      issuedHistory: [{
+        subdivision: subdivisionIs
+    }]
+    }
+    async function issue() {
+      let response = await fetch("/api/issue", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      let result = await response.json();
+      alert(result.message);
+      dispatch({ type: CLEAR });
+    }
+    issue();
+
+    // console.log("issueItems", issueItems);
+    // console.log("body", body)
+  }
 
   return (
-    <Form onSubmit={null}>
+    <Form onSubmit={handleSubmit}>
       <Form.Row>
       <Col sm={4}>
-            <Form.Label htmlFor="modelName" srOnly>
-              Модель картриджа
+            <Form.Label htmlFor="divisionName" srOnly>
+              Отделение
             </Form.Label>
             <Form.Control
-              onChange={null}
-              name="modelName"
-              id="modelName"
+              onChange={handleChange}
+              name="divisionName"
+              id="divisionName"
               as="select"
               defaultValue="Выберите отделение"
             >
@@ -30,13 +83,13 @@ function IssuedForm(subdivision) {
           <Form.Label srOnly>Отсканируйте штрихкод</Form.Label>
           <Form.Control
             name="barcode"
-            onChange={null}
+            onChange={handleChange}
             type="text"
             placeholder="Отсканируйте штрихкод"
           />
         </Col>
         <Col>
-          <Button variant="success" onClick={null}>
+          <Button variant="success" onClick={issueCartridge}>
             Выдать
           </Button>
         </Col>

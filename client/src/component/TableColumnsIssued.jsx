@@ -1,14 +1,12 @@
 import React from "react";
 
-const TableColumnsIssued = () => {    
+const TableColumnsIssued = ({modelName, barcode, subdivision}) => {    
   return (
     <React.Fragment>
       <tr>
-        <td></td>
-        <td></td>
-        <td>
-        {/* {issuedHistory.map(issuedHistory => <div className="cheaps">{issuedHistory.date.substring(0,10).replace(new RegExp("-", 'g'), ".")} ------ {issuedHistory.subdivision}</div>)} */}
-        </td>
+        <td>{modelName}</td>
+        <td>{barcode}</td>
+        <td>{subdivision}</td>
       </tr>
     </React.Fragment>
   );

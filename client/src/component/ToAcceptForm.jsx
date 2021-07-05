@@ -5,14 +5,26 @@ import { getCartridge, CLEAR } from "../actions/trashActions";
 
 function ToAcceptForm() {
 
+  let [state, setState] = useState({barcode: ''})
+
+  function handleChange(event) {
+    setState({ [event.target.name]: event.target.value });
+    console.log(state.barcode);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    event.target.reset();
+  }
+
   return (
-    <Form onSubmit={null}>
+    <Form onSubmit={handleSubmit}>
       <Form.Row>
         <Col>
           <Form.Label srOnly>Отсканируйте штрихкод</Form.Label>
           <Form.Control
             name="barcode"
-            //onChange={handleChange}
+            onChange={handleChange}
             type="text"
             placeholder="Отсканируйте штрихкод"
           />
