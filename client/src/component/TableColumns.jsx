@@ -15,8 +15,8 @@ const TableColumns = ({ divisionName, address }) => {
       body: JSON.stringify({ divisionName }),
     });
 
-    let result = await response.json();
-    //window.M.toast({ html: result.message, classes: "rounded" });
+    await response.json();
+    
     dsp();
   };
 

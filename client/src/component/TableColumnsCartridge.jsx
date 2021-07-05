@@ -15,8 +15,8 @@ const TableColumnsCartridge = ({ modelName, color, printers }) => {
       body: JSON.stringify({ modelName }),
     });
 console.log(modelName);
-    let result = await response.json();
-    //window.M.toast({ html: result.message, classes: "rounded" });
+    await response.json();
+    
     dspm();
   };
 

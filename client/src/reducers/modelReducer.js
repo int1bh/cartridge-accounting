@@ -1,4 +1,4 @@
-import { GET_ALL_MODEL, GET_MODEL_STATE, SHOW_LOADER, HIDE_LOADER } from '../actions/modelActions'
+import { GET_ALL_MODEL, GET_MODEL_STATE } from '../actions/modelActions'
 
 const initialState = {
     modelCartridges: []

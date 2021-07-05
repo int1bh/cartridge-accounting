@@ -16,7 +16,7 @@ const TableTrash = ( data ) => {
             </tr>
           </thead>
           <tbody>
-          {arr.map(arr => <TableColumnsTrash modelName={arr.modelName} barcode={arr.barcode} key={arr._id} issuedHistory={arr.issuedHistory} />)}  
+          {arr.map(arr => <TableColumnsTrash key={arr._id} modelName={arr.modelName} barcode={arr.barcode} issuedHistory={arr.issuedHistory} />)}  
           </tbody>
         </table>
       </div>
