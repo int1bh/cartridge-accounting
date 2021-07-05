@@ -34,7 +34,6 @@ router.get('/getone', async (req, res) => {
             } else {
                 res.status(201).json(base)
             }
-            res.status(201).json(base)
         
     } catch (e) {
         res.status(500).json({message: e.message})
