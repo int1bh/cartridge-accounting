@@ -3,7 +3,19 @@ import TableColumnsIssued from './TableColumnsIssued'
 
 
 const TableIssued = ( {issueCandidate, subdivisionIs} ) => {
-    const arr = issueCandidate.issueCandidate
+    const arr1 = issueCandidate.issueCandidate
+
+    let tmpArray = [];
+
+function itemCheck(item) {
+    if (tmpArray.indexOf(item.barcode) === -1) {
+        tmpArray.push(item.barcode);
+        return true
+    }
+    return false;
+}
+
+let arr = arr1.filter((item) => itemCheck(item));
     
     return (
         <div className="scrolled">

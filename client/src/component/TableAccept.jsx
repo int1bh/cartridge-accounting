@@ -3,7 +3,19 @@ import TableColumnsAccept from './TableColumnsAccept'
 
 
 const TableAccept = ( {acceptCandidate} ) => {
-    const arr = acceptCandidate.acceptCandidate
+    const arr1 = acceptCandidate.acceptCandidate
+
+    let tmpArray = [];
+
+function itemCheck(item) {
+    if (tmpArray.indexOf(item.barcode) === -1) {
+        tmpArray.push(item.barcode);
+        return true
+    }
+    return false;
+}
+
+let arr = arr1.filter((item) => itemCheck(item));
     
     return (
         <div className="scrolled">
@@ -16,7 +28,7 @@ const TableAccept = ( {acceptCandidate} ) => {
             </tr>
           </thead>
           <tbody>
-          {arr.map(arr => <TableColumnsAccept modelName={arr.modelName} barcode={arr.barcode} key={arr._id}/>) }  
+          {arr.map(arr => <TableColumnsAccept key={arr._id} modelName={arr.modelName} barcode={arr.barcode} />) }  
           </tbody>
         </table>
       </div>

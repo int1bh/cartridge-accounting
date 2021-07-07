@@ -3,7 +3,19 @@ import TableColumnsFromRefuel from './TableColumnsFromRefuel'
 
 
 const TableFromRefuel = ( {fromRefuelCandidate} ) => {
-    const arr = fromRefuelCandidate.fromRefuelCandidate
+    const arr1 = fromRefuelCandidate.fromRefuelCandidate
+
+    let tmpArray = [];
+
+function itemCheck(item) {
+    if (tmpArray.indexOf(item.barcode) === -1) {
+        tmpArray.push(item.barcode);
+        return true
+    }
+    return false;
+}
+
+let arr = arr1.filter((item) => itemCheck(item));
     
     return (
         <div className="scrolled">

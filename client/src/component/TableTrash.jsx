@@ -3,7 +3,20 @@ import TableColumnsTrash from './TableColumnsTrash'
 
 
 const TableTrash = ( data ) => {
-    const arr = data.data;
+    const arr1 = data.data;
+
+    let tmpArray = [];
+
+    function itemCheck(item) {
+        if (tmpArray.indexOf(item.barcode) === -1) {
+            tmpArray.push(item.barcode);
+            return true
+        }
+        return false;
+    }
+    
+    let arr = arr1.filter((item) => itemCheck(item));
+
     return (
         <div className="scrolled">
           <div className="spacer"></div>

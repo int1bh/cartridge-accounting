@@ -9,11 +9,12 @@ function IssuedForm({subdivision, issueCandidate, subdivisionIs}) {
 
   
 
-  let [state, setState] = useState({divisionName: "", barcode: ""})
+  let [state, setState] = useState({divisionName: "", barcode: "", disabled: true})
 
   function handleChangeList(event) {
     event.persist();
     dispatch(insertSubdivision(event.target.value))
+    setState({disabled: false})
   }
 
   function handleChange(event) {
@@ -62,7 +63,16 @@ function IssuedForm({subdivision, issueCandidate, subdivisionIs}) {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Row>
-      <Col sm={4}>
+        <Col>
+          <Form.Label srOnly>Отсканируйте штрихкод</Form.Label>
+          <Form.Control
+            name="barcode"
+            onChange={handleChange}
+            type="text"
+            placeholder="Отсканируйте штрихкод"
+          />
+        </Col>
+        <Col sm={4}>
             <Form.Label htmlFor="divisionName" srOnly>
               Отделение
             </Form.Label>
@@ -80,16 +90,7 @@ function IssuedForm({subdivision, issueCandidate, subdivisionIs}) {
             </Form.Control>
           </Col>
         <Col>
-          <Form.Label srOnly>Отсканируйте штрихкод</Form.Label>
-          <Form.Control
-            name="barcode"
-            onChange={handleChange}
-            type="text"
-            placeholder="Отсканируйте штрихкод"
-          />
-        </Col>
-        <Col>
-          <Button variant="success" onClick={issueCartridge}>
+          <Button variant="success" onClick={issueCartridge} disabled={state.disabled}>
             Выдать
           </Button>
         </Col>
