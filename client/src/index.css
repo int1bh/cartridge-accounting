@@ -1,5 +1,27 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+.menu {
+    background: #0b1f35;
+    height: 100vh;
+}
+
+a:hover {
+    color: gray;
+    text-decoration: none;
+}
+
+.menu-item {
+    color: white;
+    font-size: 2.2em;
+    text-decoration: none;
+}
+
+.list-group-item {
+    background: none;
+    border: none;
+    padding: .2rem 0.45rem;
+}
+
 canvas {
     /* border: 2px solid black; */
     width: 180px;
@@ -30,10 +52,14 @@ canvas {
    padding-left: 40%;
 }
 
+.trash-wrap {
+    width: 60%
+}
+
 .cheaps {
     display: inline-block;
     border: 1px solid #cccccc;
-    margin: 0px 10px 0px 0px;
+    margin: 0px 10px 8px 0px;
     padding: 4px 8px;
     border-radius: 10px;
     background-color: #cccccc;

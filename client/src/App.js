@@ -15,7 +15,7 @@ function App() {
   return (
     <Container fluid>
       <Row>
-        <Col sm={2}>
+        <Col sm={2} className="menu">
           <Menu />
         </Col>
         <Col sm={10}>
