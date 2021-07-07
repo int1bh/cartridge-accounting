@@ -2,6 +2,7 @@ import {
     ISSUE_LIST_CANDIDATE,
     ACCEP_LIST_CANDIDATE,
     REFUEL_LIST_CANDIDATE,
+    FROM_REFUEL_LIST_CANDIDATE,
     LOADED,
     LOADING,
     SHOW_ERROR,
@@ -14,6 +15,7 @@ import {
     issueCandidate: [],
     acceptCandidate: [],
     refuelCandidate: [],
+    fromRefuelCandidate: [],
     issueSubdivision: '',
     isLoading: false,
     isNoContent: true,
@@ -40,6 +42,11 @@ import {
         return {
           ...state,
           refuelCandidate: [...state.refuelCandidate.concat(action.payload)]
+        }
+      case FROM_REFUEL_LIST_CANDIDATE:
+        return {
+          ...state,
+          fromRefuelCandidate: [...state.fromRefuelCandidate.concat(action.payload)]
         }
       case LOADING:
         return {

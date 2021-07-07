@@ -11,5 +11,6 @@ export const rootReducer = combineReducers({    //combineReducers использ
     trashCandidate: trashCartridgeReducer,
     issueCandidate: issueCartridgeReducer,
     acceptCandidate: issueCartridgeReducer,
-    refuelCandidate: issueCartridgeReducer
+    refuelCandidate: issueCartridgeReducer,
+    fromRefuelCandidate: issueCartridgeReducer
 })
