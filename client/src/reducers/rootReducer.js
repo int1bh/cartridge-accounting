@@ -9,5 +9,6 @@ export const rootReducer = combineReducers({    //combineReducers использ
     subdivision: subdivisionReducer,
     modelCartridges: modelReducer,
     trashCandidate: trashCartridgeReducer,
-    issueCandidate: issueCartridgeReducer
+    issueCandidate: issueCartridgeReducer,
+    acceptCandidate: issueCartridgeReducer
 })

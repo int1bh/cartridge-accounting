@@ -12,7 +12,7 @@ import ToAcceptForm from "../component/ToAcceptForm";
 import ToRefuelContent from "../component/ToRefuelContent";
 import ToRefuelForm from "../component/ToRefuelForm";
 
-export const Operation = ({subdivision, issueCandidate, subdivisionIs, loadings}) => {
+export const Operation = ({subdivision, issueCandidate, acceptCandidate, subdivisionIs, loadings}) => {
   useEffect(() => document.title = 'Учет картриджей - Операции')
     
   return (
@@ -37,13 +37,13 @@ export const Operation = ({subdivision, issueCandidate, subdivisionIs, loadings}
           <Row>
             <Col sm={8}>
               <div className="spacer"></div>
-              <ToAcceptForm />
+              <ToAcceptForm acceptCandidate={acceptCandidate}/>
             </Col>
           </Row>
           <Row>
             <Col sm={12}>
               <hr />
-              <ToAcceptContent />
+              <ToAcceptContent acceptCandidate={acceptCandidate} states={loadings}/>
             </Col>
           </Row>
         </Tab>
@@ -84,6 +84,7 @@ const mapStateToProps = (state) => {
   return {
     subdivision: state.subdivision.subdivision,
     issueCandidate: state.issueCandidate.issueCandidate,
+    acceptCandidate: state.acceptCandidate.acceptCandidate,
     subdivisionIs: state.issueCandidate.issueSubdivision,
     loadings: {isLoading: state.issueCandidate.isLoading, isNoContent: state.issueCandidate.isNoContent, isError: state.issueCandidate.isError}
   }

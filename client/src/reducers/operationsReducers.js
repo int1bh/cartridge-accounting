@@ -1,5 +1,6 @@
 import {
     ISSUE_LIST_CANDIDATE,
+    ACCEP_LIST_CANDIDATE,
     LOADED,
     LOADING,
     SHOW_ERROR,
@@ -10,6 +11,7 @@ import {
   
   const initialState = {
     issueCandidate: [],
+    acceptCandidate: [],
     issueSubdivision: '',
     isLoading: false,
     isNoContent: true,
@@ -27,6 +29,11 @@ import {
             return {
                 ...state, issueSubdivision: action.text
             }
+      case ACCEP_LIST_CANDIDATE:
+        return {
+          ...state,
+          acceptCandidate: [...state.acceptCandidate.concat(action.payload)]
+        }
       case LOADING:
         return {
           ...state,
