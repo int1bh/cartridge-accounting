@@ -22,6 +22,10 @@ a:hover {
     padding: .2rem 0.45rem;
 }
 
+.nav-link {
+    font-size: 1.4em;
+}
+
 canvas {
     /* border: 2px solid black; */
     width: 180px;

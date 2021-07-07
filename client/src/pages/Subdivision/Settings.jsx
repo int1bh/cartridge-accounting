@@ -33,7 +33,7 @@ export const Settings = () => {
               <hr />
               <Button
                 onClick={() => dispatch(viewModel())}
-                className="btn btn-primary"
+                variant='success'
               >
                 Обновить список
               </Button>
@@ -52,7 +52,7 @@ export const Settings = () => {
                 <hr />
                 <Button
                   onClick={() => dispatch(viewSubdivision())}
-                  className="btn btn-primary"
+                  variant='success'
                 >
                   Обновить список
                 </Button>

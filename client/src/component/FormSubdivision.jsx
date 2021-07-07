@@ -52,7 +52,7 @@ class FormSubdivision extends React.Component {
           <Form.Label>Адрес:</Form.Label>
           <Form.Control onChange={this.handleChange} name="address" value={this.state.address} type="text" placeholder="Пример: ул.Красная, д.124" />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="success" type="submit">
           Добавить
         </Button>
       </Form>      

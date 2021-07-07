@@ -65,7 +65,7 @@ class FormModelCartridge extends React.Component {
           <Form.Label>Модели принтеров</Form.Label>
           <Form.Control as="textarea" rows={3} onChange={this.handleChange} name="printers" value={this.state.printers} placeholder="Принтеры" />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="success" type="submit">
           Добавить
         </Button>
       </Form>      
