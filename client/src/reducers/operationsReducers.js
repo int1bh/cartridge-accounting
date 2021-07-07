@@ -1,6 +1,7 @@
 import {
     ISSUE_LIST_CANDIDATE,
     ACCEP_LIST_CANDIDATE,
+    REFUEL_LIST_CANDIDATE,
     LOADED,
     LOADING,
     SHOW_ERROR,
@@ -12,6 +13,7 @@ import {
   const initialState = {
     issueCandidate: [],
     acceptCandidate: [],
+    refuelCandidate: [],
     issueSubdivision: '',
     isLoading: false,
     isNoContent: true,
@@ -33,6 +35,11 @@ import {
         return {
           ...state,
           acceptCandidate: [...state.acceptCandidate.concat(action.payload)]
+        }
+      case REFUEL_LIST_CANDIDATE:
+        return {
+          ...state,
+          refuelCandidate: [...state.refuelCandidate.concat(action.payload)]
         }
       case LOADING:
         return {
