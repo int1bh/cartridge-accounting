@@ -118,7 +118,7 @@ router.put('/returnwarehouse', async (req, res) => {
         
         if(result[0].issued) {
             await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Склад"}}, $set: {issued: false}})
-            res.status(201).json({message: "Возвращено на склад" + " " + req.body.length + " " + "шт."})
+            res.status(201).json({message: "Возвращено на склад" + " " + req.body.barcode.length + " " + "шт."})
         } else {
             res.status(500).json({message: "Картридж уже возвращен"})
         }
@@ -160,7 +160,7 @@ router.put('/returnrefuel', async (req, res) => {
         
         if(result[0].toRefuel) {
             await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Склад"}}, $set: {issued: false, toRefuel: false}})
-            res.status(201).json({message: "Принято на склад" + " " + req.body.length + " " + "шт."})
+            res.status(201).json({message: "Принято на склад" + " " + req.body.barcode.length + " " + "шт."})
         } else {
             res.status(500).json({message: "Картридж принят ранее"})
         }

@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { Button, Col, Form } from "react-bootstrap";
+import { Button, Col, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getCartridge, CLEAR } from "../actions/trashActions";
 
 function Trash({ trashCandidate, states }) {
   const [state, setState] = useState({ barcode: "" });
   const dispatch = useDispatch();
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [res, setRes] = useState('')
 
   function handleChange(event) {
     setState({ [event.target.name]: event.target.value });
@@ -29,10 +34,11 @@ function Trash({ trashCandidate, states }) {
         body: JSON.stringify(trashedItems),
       });
       let result = await response.json();
-      alert(result.message);
+      setRes(result.message)
       dispatch({ type: CLEAR });
     }
     trash();
+    handleShow()
   }
 
   return (
@@ -53,6 +59,24 @@ function Trash({ trashCandidate, states }) {
           </Button>
         </Col>
       </Form.Row>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+        <Modal.Title>Информация</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {res}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="success" onClick={handleClose}>
+            OK
+          </Button>
+          </Modal.Footer>
+      </Modal>
     </Form>
   );
 }

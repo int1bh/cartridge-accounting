@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { Button, Col, Form } from "react-bootstrap";
+import { Button, Col, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getAcceptCandidate, CLEAR } from "../actions/operationsActions";
 
 function ToAcceptForm({acceptCandidate}) {
   const dispatch = useDispatch()
-  let [state, setState] = useState({barcode: ''})
+  const [state, setState] = useState({barcode: ''})
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [res, setRes] = useState('')
 
   function handleChange(event) {
     event.persist();
@@ -43,10 +48,11 @@ function ToAcceptForm({acceptCandidate}) {
         body: JSON.stringify(body),
       });
       let result = await response.json();
-      alert(result.message);
+      setRes(result.message)
       dispatch({ type: CLEAR });
     }
     accept();
+    handleShow()
   }
 
   return (
@@ -69,6 +75,25 @@ function ToAcceptForm({acceptCandidate}) {
           </Button>
         </Col>
       </Form.Row>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+        <Modal.Title>Информация</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {res}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="success" onClick={handleClose}>
+            OK
+          </Button>
+          </Modal.Footer>
+      </Modal>
     </Form>
   );
 }

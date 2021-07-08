@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { Button, Col, Form } from "react-bootstrap";
+import { Button, Col, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getFromRefuelCandidate, CLEAR } from "../actions/operationsActions";
 
 function FromRefuelForm({fromRefuelCandidate}) {
 
   const dispatch = useDispatch()
-  let [state, setState] = useState({barcode: ''})
+  const [state, setState] = useState({barcode: ''})
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [res, setRes] = useState('')
 
   function handleChange(event) {
     event.persist();
@@ -45,10 +50,11 @@ function FromRefuelForm({fromRefuelCandidate}) {
         body: JSON.stringify(body),
       });
       let result = await response.json();
-      alert(result.message);
+      setRes(result.message)
       dispatch({ type: CLEAR });
     }
     fromRefuel();
+    handleShow()
   }
 
   return (
@@ -71,6 +77,24 @@ function FromRefuelForm({fromRefuelCandidate}) {
           </Button>
         </Col>
       </Form.Row>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+        <Modal.Title>Информация</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {res}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="success" onClick={handleClose}>
+            OK
+          </Button>
+          </Modal.Footer>
+      </Modal>
     </Form>
   );
 }

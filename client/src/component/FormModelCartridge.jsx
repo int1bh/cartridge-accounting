@@ -1,18 +1,26 @@
 import React from "react";
-import {Button} from 'react-bootstrap'
-import Form from 'react-bootstrap/Form'
+import {Form, Button, Modal} from 'react-bootstrap'
 
 class FormModelCartridge extends React.Component {
   constructor(props) {
     super(props);
     this.state = { modelName: "",
                    color: "",
-                   printers: ""
+                   printers: "",
+                   show: false,
+                   res: ""
                   };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleShow = this.handleShow.bind(this);
   }
+
+  
+  handleClose = () => this.setState({show: false});
+  handleShow = () => this.setState({show: true});
+  
 
   handleChange(event) {
     event.persist();
@@ -28,24 +36,27 @@ class FormModelCartridge extends React.Component {
     event.preventDefault();
     event.target.reset();
     let sub = this.state
-    // let sub = {modelName: this.state.modelName, color: this.state.color, printers: this.state.printers} //.split(/[\n]|,/)
-    
-    async function addCartridgeModel() {
+
+    const addCartridgeModel = async () => {
       let response = await fetch("/api/addmodel", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(sub),
       });
       let result = await response.json();
-      console.log(result);
+      this.setState({res: result.message})
     }
+    
 
     addCartridgeModel();
     this.setState( { modelName: "",
                     color: "",
-                    printers: ""
+                    printers: "",
+                    show: false,
+                   res: ""
                    }
       );
+      this.handleShow()
   }
 
   render() {
@@ -68,6 +79,25 @@ class FormModelCartridge extends React.Component {
         <Button variant="success" type="submit">
           Добавить
         </Button>
+
+        <Modal
+        show={this.state.show}
+        onHide={this.handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+        <Modal.Title>Информация</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {this.state.res}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="success" onClick={this.handleClose}>
+            OK
+          </Button>
+          </Modal.Footer>
+      </Modal>
       </Form>      
     );
   }
