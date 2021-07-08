@@ -27,6 +27,14 @@ function Trash({ trashCandidate, states }) {
     let trashedItems = Array.from(
       new Set(trashCandidate.map((trashCandidate) => trashCandidate.barcode))
     );
+let filtered = trashCandidate.reduce(function(acc, current, index) {
+  acc[current.modelName] = (acc[current.modelName] || 0) +1;
+  return acc
+}, {})
+
+console.log("trashCandidate",filtered);
+console.log(typeof(filtered));
+
     async function trash() {
       let response = await fetch("/api/dropcartridge", {
         method: "DELETE",

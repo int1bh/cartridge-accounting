@@ -37,10 +37,7 @@ export function trashCartridgeReducer(state = initialState, action) {
       };
     case CLEAR:
       return {
-        ...state,
-        isLoading: false,
-        isNoContent: true,
-        isError: false,
+        ...initialState
       };
     case SHOW_ERROR:
       return {

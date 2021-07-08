@@ -20,7 +20,7 @@ const TrashContent = ({ trashCandidate, states }) => {
   } else if (!states.isLoading & !states.isNoContent & !states.isError) {
     load = <TableTrash data={trashCandidate} />;
   } else if (states.isError & !states.isLoading & !states.isNoContent) {
-    alert = <Alert variant="danger">Нет такого картриджа в базе</Alert>;
+    alert = <Alert variant="danger">Не найден или отсканирован повторно</Alert>;
     load = <TableTrash data={trashCandidate} />;
   } else {
     load = noContent;
