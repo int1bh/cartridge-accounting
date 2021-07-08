@@ -1,13 +1,8 @@
 import React, { useEffect } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { viewSubdivision } from "../actions/subdivisionActions";
 
 
-export const Monitor = (props) => {
-    const dispatch = useDispatch()
-    const sub = useSelector(state => state.subdivision.subdivision)
-    //console.log(sub);
 
+export const Monitor = () => {
     useEffect(() => document.title = 'Учет картриджей - Монитор')
     
   return (
@@ -18,16 +13,5 @@ export const Monitor = (props) => {
   );
 };
 
-const mapStateToProps = (store) => {
-  return {
-    
-  };
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Monitor);
+export default Monitor;
