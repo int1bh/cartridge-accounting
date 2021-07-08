@@ -27,7 +27,7 @@ export function showAlert(text) {
   return (dispatch) => {
     dispatch({ type: text });
 
-    setTimeout(() => dispatch(hideAlert(HIDE_ERROR)), 2000);
+    setTimeout(() => dispatch(hideAlert(HIDE_ERROR)), 3000);
   };
 }
 
