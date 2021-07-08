@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { Button, Col, Form } from "react-bootstrap";
+import { Button, Col, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getIssueCandidate, insertSubdivision, CLEAR } from "../actions/operationsActions";
 
 function IssuedForm({subdivision, issueCandidate, subdivisionIs}) {
   const subdibisionList = subdivision.subdivision
   const dispatch = useDispatch()
-
+  const [state, setState] = useState({divisionName: "", barcode: "", disabled: true})
   
-
-  let [state, setState] = useState({divisionName: "", barcode: "", disabled: true})
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [res, setRes] = useState('')
 
   function handleChangeList(event) {
     event.persist();
@@ -54,10 +56,11 @@ function IssuedForm({subdivision, issueCandidate, subdivisionIs}) {
         body: JSON.stringify(body),
       });
       let result = await response.json();
-      alert(result.message);
+      setRes(result.message)
       dispatch({ type: CLEAR });
     }
     issue();
+    handleShow()
   }
 
   return (
@@ -95,6 +98,25 @@ function IssuedForm({subdivision, issueCandidate, subdivisionIs}) {
           </Button>
         </Col>
       </Form.Row>
+      
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+        <Modal.Title>Информация</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {res}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="success" onClick={handleClose}>
+            OK
+          </Button>
+          </Modal.Footer>
+      </Modal>
     </Form>
   );
 }
