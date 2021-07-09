@@ -26,12 +26,10 @@ a:hover {
     font-size: 1.4em;
 }
 
-canvas {
-    /* border: 2px solid black; */
+.bar {
     width: 180px;
     height: 70px;
     padding-right: 20px;
-
 }
 
 .print {
@@ -67,4 +65,9 @@ canvas {
     padding: 4px 8px;
     border-radius: 10px;
     background-color: #cccccc;
+}
+
+.charts {
+    width: 250px;
+    height: 250px;
 }

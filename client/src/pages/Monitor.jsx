@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import ChartsComponent from "../component/ChartsComponent";
 
 
 
@@ -6,10 +7,7 @@ export const Monitor = () => {
     useEffect(() => document.title = 'Учет картриджей - Монитор')
     
   return (
-    <div>
-      <h1>Монитор</h1>
-      <p>Страница в разработке</p>
-    </div>
+    <ChartsComponent />
   );
 };
 
