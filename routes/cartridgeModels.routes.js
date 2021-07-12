@@ -1,3 +1,4 @@
+const e = require('express')
 const { Router } = require('express')
 const CartridgeModel = require('../models/CartridgeModels')
 const router = Router()
@@ -43,9 +44,11 @@ router.post('/addmodel', async (req, res) => {
 
 router.delete('/dropmodel', async (req, res) => {
     try {
-        const {cartridgeModels} = req.body //получаем поля с фронтенда в теле запроса
+        const {modelName} = req.body //получаем поля с фронтенда в теле запроса
 
-        await CartridgeModel.deleteOne({cartridgeModels})
+        console.log("request:", req.body);
+
+        await CartridgeModel.deleteOne({modelName})
         
         res.status(201).json({message: 'Успешно удалено'})
     } catch (e) {

@@ -1,11 +1,12 @@
-const {Schema, model} = require('mongoose')
+const { Schema, model } = require("mongoose");
 
-const schema = new Schema({
-        modelName: {type: String, required: true, unique: true},           //модель картриджа
-        color: {type: String, required: true},                             //дата регистрации картриджа
-        printers: [String]                                                 //где используется
-        },
-{versionKey: false}
-)
+const schema = new Schema(
+  {
+    modelName: { type: String, required: true, unique: true },        //модель картриджа
+    color: { type: String, required: true },                          //цвет картриджа
+    printers: { type: String}                                               //где используется
+  },
+  { versionKey: false }
+);
 
-module.exports = model('CartridgeModel', schema)
+module.exports = model("CartridgeModel", schema);

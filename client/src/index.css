@@ -1,1 +1,73 @@
-@import "~materialize-css/dist/css/materialize.min.css";
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+.menu {
+    background: #0b1f35;
+    height: 100vh;
+}
+
+a:hover {
+    color: gray;
+    text-decoration: none;
+}
+
+.menu-item {
+    color: white;
+    font-size: 2.2em;
+    text-decoration: none;
+}
+
+.list-group-item {
+    background: none;
+    border: none;
+    padding: .2rem 0.45rem;
+}
+
+.nav-link {
+    font-size: 1.4em;
+}
+
+.bar {
+    width: 180px;
+    height: 70px;
+    padding-right: 20px;
+}
+
+.print {
+    width: 800px;
+    height: 1160px;
+}
+
+.del {
+    margin-right: 15px;
+}
+
+.no_content {
+    display: flex;
+    height: 70vh;
+    padding-left: 30%;
+    align-items: center;
+    color: #aba3a3;
+    font-size: 20px;
+}
+
+.no_content_center {
+   padding-left: 40%;
+}
+
+.trash-wrap {
+    width: 60%
+}
+
+.cheaps {
+    display: inline-block;
+    border: 1px solid #cccccc;
+    margin: 0px 10px 8px 0px;
+    padding: 4px 8px;
+    border-radius: 10px;
+    background-color: #cccccc;
+}
+
+.charts {
+    width: 250px;
+    height: 250px;
+}

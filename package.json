@@ -1,13 +1,15 @@
 {
   "name": "cartridge-accounting",
   "version": "1.0.0",
-  "description": "alfa-bank cartridge accounting system",
+  "description": "cartridge accounting system",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "cross-env NODE_ENV=production node server.js",
     "server": "nodemon server.js",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "client:install": "npm install --prefix client",
+    "client:build": "npm run build --prefix client",
+    "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
   },
   "devDependencies": {
     "concurrently": "^6.0.0",
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.7"
   }
 }
