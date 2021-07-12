@@ -1,23 +1,29 @@
-import React from 'react';
-import Menu from './component/menu';
-import Content from './component/content'
-import 'materialize-css';
-import './App.css'
-
+import React, { useEffect } from 'react';
+import {Container, Col, Row} from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
+import Menu from './component/Menu';
+import Content from './component/Content'
+import { viewSubdivision } from "./actions/subdivisionActions";
+import { viewModel } from "./actions/modelActions";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(viewSubdivision()));
+  useEffect(() => dispatch(viewModel()))
+
   return (
-    <div>
-      <div className="row">
-    <div className="col s2">  
-        <Menu />
-    </div>
-    <div className="col s10">
-        <Content />
-    </div>
-      </div>
-    </div>
-  );
+    <Container fluid>
+      <Row>
+        <Col sm={2} className="menu">
+          <Menu />
+        </Col>
+        <Col sm={10}>
+          <Content />
+        </Col>
+      </Row>
+    </Container>
+  )
 }
 
 export default App;

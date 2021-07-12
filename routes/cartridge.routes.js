@@ -1,5 +1,6 @@
 const { Router, json } = require('express')
 const Cartridge = require('../models/Cartridge')
+const TrashHistory = require('../models/TrashHistory')
 const router = Router()
 
 
@@ -21,6 +22,24 @@ router.get('/getall', async (req, res) => {
     }
 })
 
+// ==================================================================================
+//                           Получение картриджа по штрихкоду
+// ==================================================================================
+
+router.get('/getone', async (req, res) => {
+    try {
+            const base = await Cartridge.find({"barcode": req.query.barcode})
+            if(base.length == 0) {
+                throw new Error("Не найдено")
+            } else {
+                res.status(201).json(base)
+            }
+        
+    } catch (e) {
+        res.status(500).json({message: e.message})
+    }
+})
+
 
 // ===================================================================================
 //                               Добавление картриджа в базу
@@ -28,14 +47,39 @@ router.get('/getall', async (req, res) => {
 
 router.post('/addcartridge', async (req, res) => {
     try {
-        const {modelName, registered, barcode, issued, issuedHistory, toRefuel} = req.body //получаем поля с фронтенда в теле запроса
+        await Cartridge.insertMany(req.body)
+        
+        res.status(201).json({message: `Добавлено картриджей: ${req.body.length} шт.`})
+    } catch (e) {
+        res.status(500).json({message: e.message})
+    }
+})
 
-        const cartridge = new Cartridge({modelName, registered, barcode, issued, issuedHistory, toRefuel})
 
-        await cartridge.save()
+// ===================================================================================
+//                      Внесение информации по удаленным картриджам
+// ===================================================================================
 
-        res.status(201).json({message: "Добавлен картридж"})
+router.post('/trash', async (req, res) => {
+    try {
+        await TrashHistory.insertMany(req.body)
+        
+        res.status(201).json({message: `Информация внесена`})
+    } catch (e) {
+        res.status(500).json({message: e.message})
+    }
+})
 
+
+// ==================================================================================
+//                      Получение информации по удаленным картриджам
+// ==================================================================================
+
+router.get('/gettrash', async (req, res) => {
+    try {
+            const base = await TrashHistory.find().limit(+req.query.limit)
+            res.status(201).json(base)
+        
     } catch (e) {
         res.status(500).json({message: e.message})
     }
@@ -53,7 +97,7 @@ router.put('/issue', async (req, res) => {
              
         if(!result[0].issued) {
             await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: issuedHistory[0].subdivision}}, $set: {issued: true}})
-            res.status(201).json({message: "Выдано в" + " " + issuedHistory[0].subdivision})
+            res.status(201).json({message: "Выдано" + " " + req.body.barcode.length + " " + "шт." + " " + "в" + " " + issuedHistory[0].subdivision})
         } else {
             res.status(500).json({message: "Нельзя выдать ранее выданный картридж!"})
         } 
@@ -74,7 +118,7 @@ router.put('/returnwarehouse', async (req, res) => {
         
         if(result[0].issued) {
             await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Склад"}}, $set: {issued: false}})
-            res.status(201).json({message: "Успешно!"})
+            res.status(201).json({message: "Возвращено на склад" + " " + req.body.barcode.length + " " + "шт."})
         } else {
             res.status(500).json({message: "Картридж уже возвращен"})
         }
@@ -93,11 +137,11 @@ router.put('/torefuel', async (req, res) => {
         const {barcode} = req.body
         const result = await Cartridge.find({"barcode": req.body.barcode})
         
-        if(!result[0].issued & !result[0].toRefuel) {
+        if(!result[0].toRefuel) {
             await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Отдан в заправку"}}, $set: {issued: false, toRefuel: true}})
-            res.status(201).json({message: "Отдан в заправку"})
+            res.status(201).json({message: "Отправлено на заправку" + " " + req.body.barcode.length + " " + "шт."})
         } else {
-            res.status(500).json({message: "Ошибка! Картридж уже в заправке"})
+            res.status(500).json({message: "Картридж уже на заправке"})
         }
     
     } catch (e) {
@@ -114,11 +158,11 @@ router.put('/returnrefuel', async (req, res) => {
         const {barcode} = req.body
         const result = await Cartridge.find({"barcode": req.body.barcode})
         
-        if(!result[0].issued & result[0].toRefuel) {
+        if(result[0].toRefuel) {
             await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Склад"}}, $set: {issued: false, toRefuel: false}})
-            res.status(201).json({message: "Принят на склад"})
+            res.status(201).json({message: "Принято на склад" + " " + req.body.barcode.length + " " + "шт."})
         } else {
-            res.status(500).json({message: "Принят ранее"})
+            res.status(500).json({message: "Картридж принят ранее"})
         }
     
     } catch (e) {
@@ -133,11 +177,9 @@ router.put('/returnrefuel', async (req, res) => {
 
 router.delete('/dropcartridge', async (req, res) => {
     try {
-        const {barcode} = req.body //получаем поля с фронтенда в теле запроса
-
-        await Cartridge.deleteMany({barcode: {$in: [...barcode]}})
+        await Cartridge.deleteMany({barcode: {$in: [...req.body]}})
         
-        res.status(201).json({message: 'Успешно удалено'})
+        res.status(201).json({message: "Удалено" + " " + req.body.length + " " + "шт."})
     } catch (e) {
         res.status(500).json({message: e.message})
     }

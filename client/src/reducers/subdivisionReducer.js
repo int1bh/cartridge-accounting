@@ -1,4 +1,4 @@
-import { GET_ALL_SUBDIVISION, GET_SUBDIVISION_STATE, SHOW_LOADER, HIDE_LOADER } from '../actions/subdivisionActions'
+import { GET_ALL_SUBDIVISION, GET_SUBDIVISION_STATE } from '../actions/subdivisionActions'
 
 const initialState = {
     subdivision: []
