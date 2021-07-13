@@ -71,3 +71,9 @@ a:hover {
     width: 250px;
     height: 250px;
 }
+
+.monitor-card {
+    width: 22rem;
+    margin-left: 1.2rem;
+    margin-top: 1.2rem;
+}
