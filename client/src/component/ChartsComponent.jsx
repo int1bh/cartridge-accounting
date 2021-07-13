@@ -1,16 +1,27 @@
-import React from "react";
-import { Doughnut } from "react-chartjs-2";
+import React, { useState } from "react";
+import { Bar } from "react-chartjs-2";
 import { Card, Row } from "react-bootstrap";
 
-function ChartsComponent() {
+function ChartsComponent(modelCartridges) {
 const rand = () => Math.floor(Math.random() * 255)
+
+const [model, setModel] = useState()
+
+const colors = []
+ for (let i = 0; i < modelCartridges.modelCartridges.length; i++) {
+   colors.push(`rgba(${rand()}, ${rand()}, ${rand()})`)
+ }
+
+console.log(colors);
+
+console.log(modelCartridges.modelCartridges);
 
   const options = {
     responsive: true,
     plugins: {
       legend: {
         position: "bottom",
-        display: true,
+        display: false,
         labels: {
           color: "black",
           font: { size: 12 },
@@ -20,12 +31,12 @@ const rand = () => Math.floor(Math.random() * 255)
   };
 
   const data = {
-    labels: ["HP 280", "HP 237", "HP 12", "HP 255", "HP 226", "HP 264"],
+    labels: modelCartridges.modelCartridges,
     datasets: [
       {
         //label: "dffs",
-        data: [12, 19, 3, 5, 2, 8],
-        backgroundColor: [`rgba(${rand()}, ${rand()}, ${rand()})`, `rgb(${rand()}, ${rand()}, ${rand()})`, `rgb(${rand()}, ${rand()}, ${rand()})`, `rgb(${rand()}, ${rand()}, ${rand()})`, `rgb(${rand()}, ${rand()}, ${rand()})`, `rgb(${rand()}, ${rand()}, ${rand()})`],
+        data: [0, 10, 1, 1, 6, 1, 1, 1, 1, 1, 8, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1,1, 1, 1, 1, 1, 1, 1, 1, 1],
+        backgroundColor: colors,
         //borderColor: [`rgb(${rand()}, ${rand()}, ${rand()})`, `rgb(${rand()}, ${rand()}, ${rand()})`, `rgb(${rand()}, ${rand()}, ${rand()})`, `rgb(${rand()}, ${rand()}, ${rand()})`, `rgb(${rand()}, ${rand()}, ${rand()})`, `rgb(${rand()}, ${rand()}, ${rand()})`],
         borderWidth: 1,
       },
@@ -33,26 +44,32 @@ const rand = () => Math.floor(Math.random() * 255)
   };
 
   return (
-    <Row>
-    <Card className="text-center monitor-card">
-      <Card.Header>На складе</Card.Header>
+    <Row className="scrolled fullscreen">
+<Card className="text-center monitor-card">
+      <Card.Header>На складе: {modelCartridges.modelCartridges.length} шт.</Card.Header>
       <Card.Body>
-        <Doughnut options={options} data={data} />
+        <Bar options={options} data={data} />
       </Card.Body>
     </Card>
+    
+    
     <Card className="text-center monitor-card">
       <Card.Header>Выданы в отделения</Card.Header>
       <Card.Body>
-        <Doughnut options={options} data={data} />
+        <Bar options={options} data={data} />
       </Card.Body>
     </Card>
     <Card className="text-center monitor-card">
       <Card.Header>На заправке</Card.Header>
       <Card.Body>
-        <Doughnut options={options} data={data} />
+        <Bar options={options} data={data} />
       </Card.Body>
     </Card>
     </Row>
+    
+    
+    
+    
     
   );
 }

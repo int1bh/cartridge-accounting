@@ -22,6 +22,17 @@ router.get('/getall', async (req, res) => {
     }
 })
 
+router.get('/find', async (req, res) => {
+    try {
+        console.log(req.query);
+        const base = await Cartridge.find(req.query).limit(+req.query.limit)
+            res.status(201).json(base)
+        
+    } catch (e) {
+        res.status(500).json({message: e.message})
+    }
+})
+
 // ==================================================================================
 //                           Получение картриджа по штрихкоду
 // ==================================================================================

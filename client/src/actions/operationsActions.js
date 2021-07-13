@@ -3,11 +3,15 @@ export const ACCEP_LIST_CANDIDATE = 'ACCEP_LIST_CANDIDATE'
 export const REFUEL_LIST_CANDIDATE = 'REFUEL_LIST_CANDIDATE'
 export const FROM_REFUEL_LIST_CANDIDATE = 'FROM_REFUEL_LIST_CANDIDATE'
 export const ISSUE_SUBDIVISION = 'ISSUE_SUBDIVISION'
+export const GET_FILTERED_WAREHOUSE = 'GET_FILTERED_WAREHOUSE'
+export const GET_FILTERED_ISSUED = 'GET_FILTERED_ISSUED'
+export const GET_FILTERED_REFUEL = 'GET_FILTERED_REFUEL'
 export const LOADING = "LOADING";
 export const LOADED = "LOADED";
 export const SHOW_ERROR = "SHOW_ERROR";
 export const HIDE_ERROR = "HIDE_ERROR";
 export const CLEAR = "CLEAR";
+
 
 export function getIssueCandidate(barcode) {
     return async (dispatch) => {
@@ -101,5 +105,21 @@ export function getIssueCandidate(barcode) {
   export function hideAlert(text) {
     return (dispatch) => {
       dispatch({ type: text });
+    };
+  }
+
+  export function getFiltered(query, type) {
+    return async (dispatch) => {
+      try {
+        const response = await fetch("/api/find?" + query);
+        const json = await response.json();
+        if (response.ok) {
+          dispatch({ type: type, payload: json });
+        } else {
+          throw new Error({ message: 'error' });
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
     };
   }
