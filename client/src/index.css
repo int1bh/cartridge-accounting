@@ -51,7 +51,7 @@ a:hover {
 }
 
 .no_content_center {
-   padding-left: 40%;
+    padding-left: 40%;
 }
 
 .trash-wrap {
@@ -73,9 +73,26 @@ a:hover {
 }
 
 .monitor-card {
-    width: 95%;
+    width: 45%;
     margin-left: 1.2rem;
     margin-top: 1.2rem;
+}
+
+.monitor-card-open {
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    left: 50%;
+    top: 50%;
+    margin-top: 0;
+    margin-left: 0;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+}
+
+.monitor-card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
 }
 
 .fullscreen {

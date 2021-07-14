@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Card, Row } from "react-bootstrap";
+import classnames from 'classnames';
 
 function ChartsComponent({
   modelCartridges,
@@ -8,6 +9,9 @@ function ChartsComponent({
   filteredIssued,
   filteredRefuel,
 }) {
+  const [className, setClassname] = useState({show: false})
+  const [className0, setClassname0] = useState({show: false})
+  const [className1, setClassname1] = useState({show: false})
   const rand = () => Math.floor(Math.random() * 255);
 
   const arrWarehouse = filteredWarehouse.reduce(
@@ -113,16 +117,20 @@ function ChartsComponent({
     ],
   };
 
+  const setClass = () => setClassname(!className)
+  const setClass0 = () => setClassname0(!className0)
+  const setClass1 = () => setClassname1(!className1)
+
   return (
     <Row className="scrolled fullscreen">
-      <Card className="text-center monitor-card">
+      <Card className={classnames('text-center monitor-card', { 'monitor-card-open': !className })} onClick={setClass}>
         <Card.Header>На складе: {sumWarehouse} шт.</Card.Header>
         <Card.Body>
           <Bar options={options} data={dataWarehouse} />
         </Card.Body>
       </Card>
 
-      <Card className="text-center monitor-card">
+      <Card className={classnames('text-center monitor-card', { 'monitor-card-open': !className0 })} onClick={setClass0}>
         <Card.Header>
           Выданы в отделения: {sumIssued} шт.
         </Card.Header>
@@ -130,7 +138,7 @@ function ChartsComponent({
           <Bar options={options} data={dataIssued} />
         </Card.Body>
       </Card>
-      <Card className="text-center monitor-card">
+      <Card className={classnames('text-center monitor-card', { 'monitor-card-open': !className1 })} onClick={setClass1}>
         <Card.Header>На заправке: {sumRefuel} шт.</Card.Header>
         <Card.Body>
           <Bar options={options} data={dataRefuel} />
