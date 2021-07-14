@@ -3,7 +3,6 @@ import ChartsComponent from './ChartsComponent'
 import { connect } from 'react-redux'
 
 function MonitorContent({modelCartridges, filteredWarehouse, filteredIssued, filteredRefuel}) {
-    console.log("mc", filteredWarehouse);
     return(
         <ChartsComponent modelCartridges={modelCartridges} filteredWarehouse={filteredWarehouse} filteredIssued={filteredIssued} filteredRefuel={filteredRefuel} />
     )

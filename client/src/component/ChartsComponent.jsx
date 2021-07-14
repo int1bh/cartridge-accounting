@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Bar } from "react-chartjs-2";
 import { Card, Row } from "react-bootstrap";
 
@@ -10,12 +10,61 @@ function ChartsComponent({
 }) {
   const rand = () => Math.floor(Math.random() * 255);
 
-  const [model, setModel] = useState();
+  const arrWarehouse = filteredWarehouse.reduce(
+    function(result, item, index) {
+      result[item.modelName] = (result[item.modelName] || 0) +1;
+      return result
+    }, {}
+  )
 
-  const colors = [];
-  for (let i = 0; i < modelCartridges.length; i++) {
-    colors.push(`rgba(${rand()}, ${rand()}, ${rand()})`);
+  const arrIssued = filteredIssued.reduce(
+    function(result, item, index) {
+      result[item.modelName] = (result[item.modelName] || 0) +1;
+      return result
+    }, {}
+  )
+
+  const arrRefuel = filteredRefuel.reduce(
+    function(result, item, index) {
+      result[item.modelName] = (result[item.modelName] || 0) +1;
+      return result
+    }, {}
+  )
+
+  const modelWarehause = Object.keys(arrWarehouse)
+  const modelIssued = Object.keys(arrIssued)
+  const modelRefuel = Object.keys(arrRefuel)
+
+  const sumWarehouse = Object.values(arrWarehouse).reduce(function(sum, elem) {
+    return sum + elem
+  }, 0)
+  const sumIssued = Object.values(arrIssued).reduce(function(sum, elem) {
+    return sum + elem
+  }, 0)
+  const sumRefuel = Object.values(arrRefuel).reduce(function(sum, elem) {
+    return sum + elem
+  }, 0)
+
+  const countWarehouse = Object.values(arrWarehouse)
+  const countIssued = Object.values(arrIssued)
+  const countRefuel = Object.values(arrRefuel)
+
+  const colorsWarehouse = [];
+  for (let i = 0; i < modelWarehause.length; i++) {
+    colorsWarehouse.push(`rgba(${rand()}, ${rand()}, ${rand()})`);
   }
+
+  const colorsIssued = [];
+  for (let i = 0; i < modelIssued.length; i++) {
+    colorsIssued.push(`rgba(${rand()}, ${rand()}, ${rand()})`);
+  }
+
+  const colorsRefuel = [];
+  for (let i = 0; i < modelRefuel.length; i++) {
+    colorsRefuel.push(`rgba(${rand()}, ${rand()}, ${rand()})`);
+  }
+
+  
 
   const options = {
     responsive: true,
@@ -31,15 +80,34 @@ function ChartsComponent({
     },
   };
 
-  const data = {
-    labels: modelCartridges,
+  const dataWarehouse = {
+    labels: modelWarehause,
     datasets: [
       {
-        data: [
-          0, 10, 1, 1, 6, 1, 1, 1, 1, 1, 8, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1,
-          1, 1, 1, 1, 1, 1, 1, 1,
-        ],
-        backgroundColor: colors,
+        data: countWarehouse,
+        backgroundColor: colorsWarehouse,
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const dataIssued = {
+    labels: modelIssued,
+    datasets: [
+      {
+        data: countIssued,
+        backgroundColor: colorsIssued,
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const dataRefuel = {
+    labels: modelRefuel,
+    datasets: [
+      {
+        data: countRefuel,
+        backgroundColor: colorsRefuel,
         borderWidth: 1,
       },
     ],
@@ -48,24 +116,24 @@ function ChartsComponent({
   return (
     <Row className="scrolled fullscreen">
       <Card className="text-center monitor-card">
-        <Card.Header>На складе: {filteredWarehouse.length} шт.</Card.Header>
+        <Card.Header>На складе: {sumWarehouse} шт.</Card.Header>
         <Card.Body>
-          <Bar options={options} data={data} />
+          <Bar options={options} data={dataWarehouse} />
         </Card.Body>
       </Card>
 
       <Card className="text-center monitor-card">
         <Card.Header>
-          Выданы в отделения: {filteredIssued.length} шт.
+          Выданы в отделения: {sumIssued} шт.
         </Card.Header>
         <Card.Body>
-          <Bar options={options} data={data} />
+          <Bar options={options} data={dataIssued} />
         </Card.Body>
       </Card>
       <Card className="text-center monitor-card">
-        <Card.Header>На заправке: {filteredRefuel.length} шт.</Card.Header>
+        <Card.Header>На заправке: {sumRefuel} шт.</Card.Header>
         <Card.Body>
-          <Bar options={options} data={data} />
+          <Bar options={options} data={dataRefuel} />
         </Card.Body>
       </Card>
     </Row>
