@@ -1,21 +1,25 @@
 import React, { useEffect } from "react";
-import { connect } from 'react-redux'
-import ChartsComponent from "../component/ChartsComponent";
+import { useDispatch } from "react-redux";
+import {
+  getFiltered,
+  GET_FILTERED_ISSUED,
+  GET_FILTERED_REFUEL,
+  GET_FILTERED_WAREHOUSE,
+} from "../actions/operationsActions";
+import MonitorContent from "../component/MonitorContent";
 
-
-
-export const Monitor = (modelCartridges) => {
-    useEffect(() => document.title = 'Учет картриджей - Монитор')
-    //console.log("model", modelCartridges.modelCartridges);
-  return (
-    <ChartsComponent modelCartridges={modelCartridges.modelCartridges}/>
+export const Monitor = () => {
+  const dispatch = useDispatch();
+  useEffect(() => (document.title = "Учет картриджей - Монитор"));
+  useEffect(() =>
+    dispatch(getFiltered("issued=false&toRefuel=false", GET_FILTERED_WAREHOUSE))
   );
+  useEffect(() =>
+    dispatch(getFiltered("issued=true&toRefuel=false", GET_FILTERED_ISSUED))
+  );
+  useEffect(() => dispatch(getFiltered("toRefuel=true", GET_FILTERED_REFUEL)));
+
+  return <MonitorContent />;
 };
 
-const mapStateToProps = (state) => {
-  return {
-    modelCartridges: state.modelCartridges.modelCartridges.map(item => item.modelName)
-  };
-};
-
-export default connect(mapStateToProps)(Monitor);
+export default Monitor;

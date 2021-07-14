@@ -5,12 +5,16 @@ import Menu from './component/Menu';
 import Content from './component/Content'
 import { viewSubdivision } from "./actions/subdivisionActions";
 import { viewModel } from "./actions/modelActions";
+import { getFiltered, GET_FILTERED_ISSUED, GET_FILTERED_REFUEL, GET_FILTERED_WAREHOUSE } from './actions/operationsActions';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => dispatch(viewSubdivision()));
   useEffect(() => dispatch(viewModel()))
+  useEffect(() => dispatch(getFiltered('issued=false&toRefuel=false', GET_FILTERED_WAREHOUSE)))
+  useEffect(() => dispatch(getFiltered('issued=true&toRefuel=false', GET_FILTERED_ISSUED)))
+  useEffect(() => dispatch(getFiltered('toRefuel=true', GET_FILTERED_REFUEL)))
 
   return (
     <Container fluid>
