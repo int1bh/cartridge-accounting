@@ -4,7 +4,6 @@ import { Card, Row } from "react-bootstrap";
 import classnames from 'classnames';
 
 function ChartsComponent({
-  modelCartridges,
   filteredWarehouse,
   filteredIssued,
   filteredRefuel,
@@ -12,7 +11,15 @@ function ChartsComponent({
   const [className, setClassname] = useState({show: false})
   const [className0, setClassname0] = useState({show: false})
   const [className1, setClassname1] = useState({show: false})
+  const [className2, setClassname2] = useState({show: false})
   const rand = () => Math.floor(Math.random() * 255);
+
+  const arrHistory = filteredIssued.reduce(
+    function(result, item) {
+      result[item.issuedHistory[item.issuedHistory.length-1].subdivision] = (result[item.issuedHistory[item.issuedHistory.length-1].subdivision] || 0) +1;
+      return result
+    }, {}
+  )
 
   const arrWarehouse = filteredWarehouse.reduce(
     function(result, item, index) {
@@ -38,6 +45,7 @@ function ChartsComponent({
   const modelWarehause = Object.keys(arrWarehouse)
   const modelIssued = Object.keys(arrIssued)
   const modelRefuel = Object.keys(arrRefuel)
+  const subdivision = Object.keys(arrHistory)
 
   const sumWarehouse = Object.values(arrWarehouse).reduce(function(sum, elem) {
     return sum + elem
@@ -52,6 +60,7 @@ function ChartsComponent({
   const countWarehouse = Object.values(arrWarehouse)
   const countIssued = Object.values(arrIssued)
   const countRefuel = Object.values(arrRefuel)
+  const countHistory = Object.values(arrHistory)
 
   const colorsWarehouse = [];
   for (let i = 0; i < modelWarehause.length; i++) {
@@ -66,6 +75,11 @@ function ChartsComponent({
   const colorsRefuel = [];
   for (let i = 0; i < modelRefuel.length; i++) {
     colorsRefuel.push(`rgba(${rand()}, ${rand()}, ${rand()})`);
+  }
+
+  const colorsHistory = [];
+  for (let i = 0; i < subdivision.length; i++) {
+    colorsHistory.push(`rgba(${rand()}, ${rand()}, ${rand()})`);
   }
 
   
@@ -117,9 +131,21 @@ function ChartsComponent({
     ],
   };
 
+  const dataHistory = {
+    labels: subdivision,
+    datasets: [
+      {
+        data: countHistory,
+        backgroundColor: colorsHistory,
+        borderWidth: 1,
+      },
+    ],
+  };
+
   const setClass = () => setClassname(!className)
   const setClass0 = () => setClassname0(!className0)
   const setClass1 = () => setClassname1(!className1)
+  const setClass2 = () => setClassname2(!className2)
 
   return (
     <Row className="scrolled fullscreen">
@@ -138,8 +164,16 @@ function ChartsComponent({
           <Bar options={options} data={dataIssued} />
         </Card.Body>
       </Card>
+      <Card className={classnames('text-center monitor-card', { 'monitor-card-open': !className2 })} onClick={setClass2}>
+        <Card.Header>
+          Статистика распределения. Всего выдано: {sumIssued} шт.
+        </Card.Header>
+        <Card.Body>
+          <Bar options={options} data={dataHistory} />
+        </Card.Body>
+      </Card>
       <Card className={classnames('text-center monitor-card', { 'monitor-card-open': !className1 })} onClick={setClass1}>
-        <Card.Header>На заправке: {sumRefuel} шт.</Card.Header>
+        <Card.Header>На заправку: {sumRefuel} шт.</Card.Header>
         <Card.Body>
           <Bar options={options} data={dataRefuel} />
         </Card.Body>
