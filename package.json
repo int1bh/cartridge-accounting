@@ -4,7 +4,7 @@
   "description": "cartridge accounting system",
   "main": "server.js",
   "scripts": {
-    "start": "node backend/server.js",
+    "start": "node server.js",
     "start1": "cross-env NODE_ENV=production node server.js",
     "server": "nodemon server.js",
     "client": "npm run start --prefix client",
