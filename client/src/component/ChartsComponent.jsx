@@ -7,11 +7,13 @@ function ChartsComponent({
   filteredWarehouse,
   filteredIssued,
   filteredRefuel,
+  filteredScrapped
 }) {
   const [className, setClassname] = useState({show: false})
   const [className0, setClassname0] = useState({show: false})
   const [className1, setClassname1] = useState({show: false})
   const [className2, setClassname2] = useState({show: false})
+  const [className3, setClassname3] = useState({show: false})
   const rand = () => Math.floor(Math.random() * 255);
 
   const arrHistory = filteredIssued.reduce(
@@ -42,10 +44,18 @@ function ChartsComponent({
     }, {}
   )
 
+  const arrScrapped = filteredScrapped.reduce(
+      function(result, item, index) {
+        result[item.modelName] = (result[item.modelName] || 0) +1;
+        return result
+      }, {}
+  )
+
   const modelWarehause = Object.keys(arrWarehouse)
   const modelIssued = Object.keys(arrIssued)
   const modelRefuel = Object.keys(arrRefuel)
   const subdivision = Object.keys(arrHistory)
+  const scrapped = Object.keys(arrScrapped)
 
   const sumWarehouse = Object.values(arrWarehouse).reduce(function(sum, elem) {
     return sum + elem
@@ -57,10 +67,15 @@ function ChartsComponent({
     return sum + elem
   }, 0)
 
+  const sumScrapped = Object.values(arrScrapped).reduce(function(sum, elem) {
+    return sum + elem
+  }, 0)
+
   const countWarehouse = Object.values(arrWarehouse)
   const countIssued = Object.values(arrIssued)
   const countRefuel = Object.values(arrRefuel)
   const countHistory = Object.values(arrHistory)
+  const countScrapped = Object.values(arrScrapped)
 
   const colorsWarehouse = [];
   for (let i = 0; i < modelWarehause.length; i++) {
@@ -80,6 +95,11 @@ function ChartsComponent({
   const colorsHistory = [];
   for (let i = 0; i < subdivision.length; i++) {
     colorsHistory.push(`rgba(${rand()}, ${rand()}, ${rand()})`);
+  }
+
+  const colorsScrapped = [];
+  for (let i = 0; i < scrapped.length; i++) {
+    colorsScrapped.push(`rgba(${rand()}, ${rand()}, ${rand()})`);
   }
 
   
@@ -142,10 +162,22 @@ function ChartsComponent({
     ],
   };
 
+  const dataScrapped = {
+    labels: scrapped,
+    datasets: [
+      {
+        data: countScrapped,
+        backgroundColor: colorsScrapped,
+        borderWidth: 1,
+      },
+    ],
+  };
+
   const setClass = () => setClassname(!className)
   const setClass0 = () => setClassname0(!className0)
   const setClass1 = () => setClassname1(!className1)
   const setClass2 = () => setClassname2(!className2)
+  const setClass3 = () => setClassname3(!className3)
 
   return (
     <Row className="scrolled fullscreen">
@@ -176,6 +208,12 @@ function ChartsComponent({
         <Card.Header>На заправку: {sumRefuel} шт.</Card.Header>
         <Card.Body>
           <Bar options={options} data={dataRefuel} />
+        </Card.Body>
+      </Card>
+      <Card className={classnames('text-center monitor-card', { 'monitor-card-open': !className3 })} onClick={setClass3}>
+        <Card.Header>Утилизировано: {sumScrapped} шт.</Card.Header>
+        <Card.Body>
+          <Bar options={options} data={dataScrapped} />
         </Card.Body>
       </Card>
     </Row>

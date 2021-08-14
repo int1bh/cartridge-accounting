@@ -6,6 +6,7 @@ export const ISSUE_SUBDIVISION = 'ISSUE_SUBDIVISION'
 export const GET_FILTERED_WAREHOUSE = 'GET_FILTERED_WAREHOUSE'
 export const GET_FILTERED_ISSUED = 'GET_FILTERED_ISSUED'
 export const GET_FILTERED_REFUEL = 'GET_FILTERED_REFUEL'
+export const GET_FILTERED_SCRAPPED = 'GET_FILTERED_SCRAPPED'
 export const LOADING = "LOADING";
 export const LOADED = "LOADED";
 export const SHOW_ERROR = "SHOW_ERROR";
@@ -19,7 +20,7 @@ export function getIssueCandidate(barcode) {
         dispatch({ type: LOADING });
         const response = await fetch("/api/getone?barcode=" + barcode);
         const json = await response.json();
-        if (response.ok & !json[0].issued & !json[0].toRefuel) {
+        if (response.ok & !json[0].issued & !json[0].toRefuel & !json[0].scrapped) {
           dispatch({ type: ISSUE_LIST_CANDIDATE, payload: json });
           dispatch({ type: LOADED });
         } else {
@@ -37,7 +38,7 @@ export function getIssueCandidate(barcode) {
         dispatch({ type: LOADING });
         const response = await fetch("/api/getone?barcode=" + barcode);
         const json = await response.json();
-        if (response.ok & json[0].issued & !json[0].toRefuel) {
+        if (response.ok & json[0].issued & !json[0].toRefuel & !json[0].scrapped) {
           dispatch({ type: ACCEP_LIST_CANDIDATE, payload: json });
           dispatch({ type: LOADED });
         } else {
@@ -55,7 +56,7 @@ export function getIssueCandidate(barcode) {
         dispatch({ type: LOADING });
         const response = await fetch("/api/getone?barcode=" + barcode);
         const json = await response.json();
-        if (response.ok & !json[0].toRefuel) {
+        if (response.ok & !json[0].toRefuel & !json[0].scrapped) {
           dispatch({ type: REFUEL_LIST_CANDIDATE, payload: json });
           dispatch({ type: LOADED });
         } else {
@@ -74,7 +75,7 @@ export function getIssueCandidate(barcode) {
         dispatch({ type: LOADING });
         const response = await fetch("/api/getone?barcode=" + barcode);
         const json = await response.json();
-        if (response.ok & json[0].toRefuel) {
+        if (response.ok & json[0].toRefuel & !json[0].scrapped) {
           dispatch({ type: FROM_REFUEL_LIST_CANDIDATE, payload: json });
           dispatch({ type: LOADED });
         } else {

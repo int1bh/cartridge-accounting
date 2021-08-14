@@ -6,6 +6,7 @@ import {
   GET_FILTERED_WAREHOUSE,
   GET_FILTERED_ISSUED,
   GET_FILTERED_REFUEL,
+  GET_FILTERED_SCRAPPED,
   LOADED,
   LOADING,
   SHOW_ERROR,
@@ -22,6 +23,7 @@ const initialState = {
   filteredWarehouse: [],
   filteredIssued: [],
   filteredRefuel: [],
+  filteredScrapped: [],
   issueSubdivision: "",
   isLoading: false,
   isNoContent: true,
@@ -72,6 +74,11 @@ export function issueCartridgeReducer(state = initialState, action) {
         ...state,
         filteredRefuel: action.payload,
       };
+    case GET_FILTERED_SCRAPPED:
+      return {
+        ...state,
+        filteredScrapped: action.payload
+      }
     case LOADING:
       return {
         ...state,

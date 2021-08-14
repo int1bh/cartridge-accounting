@@ -106,7 +106,7 @@ router.put('/issue', async (req, res) => {
         const result = await Cartridge.find({"barcode": req.body.barcode})
              
         if(!result[0].issued) {
-            await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: issuedHistory[0].subdivision}}, $set: {issued: true}})
+            await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: issuedHistory[0].subdivision}}, $set: {issued: true, changeDate: Date.now(), toSubdivision: issuedHistory[0].subdivision}})
             res.status(201).json({message: "Выдано" + " " + req.body.barcode.length + " " + "шт." + " " + "в" + " " + issuedHistory[0].subdivision})
         } else {
             res.status(500).json({message: "Нельзя выдать ранее выданный картридж!"})
@@ -127,7 +127,7 @@ router.put('/returnwarehouse', async (req, res) => {
         const result = await Cartridge.find({"barcode": req.body.barcode})
         
         if(result[0].issued) {
-            await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Склад"}}, $set: {issued: false}})
+            await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Склад"}}, $set: {issued: false, changeDate: Date.now(), toSubdivision: "Склад"}})
             res.status(201).json({message: "Возвращено на склад" + " " + req.body.barcode.length + " " + "шт."})
         } else {
             res.status(500).json({message: "Картридж уже возвращен"})
@@ -148,7 +148,7 @@ router.put('/torefuel', async (req, res) => {
         const result = await Cartridge.find({"barcode": req.body.barcode})
         
         if(!result[0].toRefuel) {
-            await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Отдан в заправку"}}, $set: {issued: false, toRefuel: true}})
+            await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Отдан в заправку"}}, $set: {issued: false, toRefuel: true, changeDate: Date.now(), toSubdivision: "Отдан в заправку"}})
             res.status(201).json({message: "Отправлено на заправку" + " " + req.body.barcode.length + " " + "шт."})
         } else {
             res.status(500).json({message: "Картридж уже на заправке"})
@@ -169,7 +169,7 @@ router.put('/returnrefuel', async (req, res) => {
         const result = await Cartridge.find({"barcode": req.body.barcode})
         
         if(result[0].toRefuel) {
-            await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Склад"}}, $set: {issued: false, toRefuel: false}})
+            await Cartridge.updateMany({barcode: {$in: [...barcode]}}, {$push: {issuedHistory: {subdivision: "Склад"}}, $set: {issued: false, toRefuel: false, changeDate: Date.now(), toSubdivision: "Склад"}})
             res.status(201).json({message: "Принято на склад" + " " + req.body.barcode.length + " " + "шт."})
         } else {
             res.status(500).json({message: "Картридж принят ранее"})
@@ -185,9 +185,9 @@ router.put('/returnrefuel', async (req, res) => {
 //                               Удаление картриджей из базы
 // ===================================================================================
 
-router.delete('/dropcartridge', async (req, res) => {
+router.put('/dropcartridge', async (req, res) => {
     try {
-        await Cartridge.deleteMany({barcode: {$in: [...req.body]}})
+        await Cartridge.updateMany({barcode: {$in: [...req.body]}}, {$push: {issuedHistory: {subdivision: null}}, $set: {issued: false, toRefuel: false, scrapped: true, changeDate: Date.now(), toSubdivision: null}})
         
         res.status(201).json({message: "Удалено" + " " + req.body.length + " " + "шт."})
     } catch (e) {

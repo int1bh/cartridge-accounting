@@ -32,12 +32,12 @@ let filtered = trashCandidate.reduce(function(acc, current, index) {
   return acc
 }, {})
 
-console.log("trashCandidate",filtered);
+console.log("trashCandidate",trashedItems);
 console.log(typeof(filtered));
 
     async function trash() {
       let response = await fetch("/api/dropcartridge", {
-        method: "DELETE",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(trashedItems),
       });
