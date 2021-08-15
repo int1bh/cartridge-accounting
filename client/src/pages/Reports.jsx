@@ -26,7 +26,7 @@ export const Reports = () => {
 //Выгрузка всех картриджей
 
 async function allCartridge() {
-    let response = await fetch('http://localhost:5000/api/find')
+    let response = await fetch('/api/find')
     let result = await response.json()
     exportAsExcelFile(result, 'Все картриджи')
 }
@@ -34,7 +34,7 @@ async function allCartridge() {
 //Выгрузка полных картриджей на складе
 
 async function warehouseCartridge() {
-    let response = await fetch('http://localhost:5000/api/find?issued=false&toRefuel=false&scrapped=false&empty=false')
+    let response = await fetch('/api/find?issued=false&toRefuel=false&scrapped=false&empty=false')
     let result = await response.json()
     exportAsExcelFile(result, 'Полные на складе')
     }
@@ -42,7 +42,7 @@ async function warehouseCartridge() {
 //Выгрузка пустых картриджей на складе
 
 async function warehouseCartridgeEmpty() {
-    let response = await fetch('http://localhost:5000/api/find?issued=false&toRefuel=false&scrapped=false&empty=true')
+    let response = await fetch('/api/find?issued=false&toRefuel=false&scrapped=false&empty=true')
     let result = await response.json()
     exportAsExcelFile(result, 'Пустые на складе')
     }
@@ -50,7 +50,7 @@ async function warehouseCartridgeEmpty() {
 //Выгрузка выданных картриджей
 
 async function issuedCartridge() {
-    let response = await fetch('http://localhost:5000/api/find?issued=true')
+    let response = await fetch('/api/find?issued=true')
     let result = await response.json()
     exportAsExcelFile(result, 'Выданные')
 }
@@ -58,7 +58,7 @@ async function issuedCartridge() {
 //Выгрузка отданных в заправку картриджей
 
 async function refuelCartridge() {
-    let response = await fetch('http://localhost:5000/api/find?toRefuel=true')
+    let response = await fetch('/api/find?toRefuel=true')
     let result = await response.json()
     exportAsExcelFile(result, 'Отданные на заправку')
 }
@@ -66,7 +66,7 @@ async function refuelCartridge() {
 //Выгрузка утилизированных картриджей
 
 async function scrappedCartridge() {
-    let response = await fetch('http://localhost:5000/api/find?scrapped=true')
+    let response = await fetch('/api/find?scrapped=true')
     let result = await response.json()
     exportAsExcelFile(result, 'Утилизированные')
     }
