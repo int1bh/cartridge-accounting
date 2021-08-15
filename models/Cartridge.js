@@ -9,6 +9,7 @@ const schema = new Schema({
         barcode: {type: String, required: true, unique: true},           //штрихкод
         issued: {type: Boolean, default: false},                         //выдан или нет. Если false, то картридж на складе
         scrapped: {type: Boolean, default: false},                      //утилизирован или нет
+        empty: {type: Boolean, default: false},                         //пустые на складе
         issuedHistory: [{subdivision: {type: String, default: null},     //история выдачи
         date: {type: Date, default: Date.now()}}],                       
         toRefuel: {type: Boolean, default: false},                       //на заправке или нет

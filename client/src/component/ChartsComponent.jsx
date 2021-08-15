@@ -7,13 +7,15 @@ function ChartsComponent({
   filteredWarehouse,
   filteredIssued,
   filteredRefuel,
-  filteredScrapped
+  filteredScrapped,
+  filteredEmpty
 }) {
   const [className, setClassname] = useState({show: false})
   const [className0, setClassname0] = useState({show: false})
   const [className1, setClassname1] = useState({show: false})
   const [className2, setClassname2] = useState({show: false})
   const [className3, setClassname3] = useState({show: false})
+  const [className4, setClassname4] = useState({show: false})
   const rand = () => Math.floor(Math.random() * 255);
 
   const arrHistory = filteredIssued.reduce(
@@ -51,11 +53,19 @@ function ChartsComponent({
       }, {}
   )
 
+  const arrEmpty = filteredEmpty.reduce(
+      function(result, item, index) {
+        result[item.modelName] = (result[item.modelName] || 0) +1;
+        return result
+      }, {}
+  )
+
   const modelWarehause = Object.keys(arrWarehouse)
   const modelIssued = Object.keys(arrIssued)
   const modelRefuel = Object.keys(arrRefuel)
   const subdivision = Object.keys(arrHistory)
   const scrapped = Object.keys(arrScrapped)
+  const empty = Object.keys(arrEmpty)
 
   const sumWarehouse = Object.values(arrWarehouse).reduce(function(sum, elem) {
     return sum + elem
@@ -71,11 +81,16 @@ function ChartsComponent({
     return sum + elem
   }, 0)
 
+  const sumEmpty = Object.values(arrEmpty).reduce(function(sum, elem) {
+    return sum + elem
+  }, 0)
+
   const countWarehouse = Object.values(arrWarehouse)
   const countIssued = Object.values(arrIssued)
   const countRefuel = Object.values(arrRefuel)
   const countHistory = Object.values(arrHistory)
   const countScrapped = Object.values(arrScrapped)
+  const countEmpty = Object.values(arrEmpty)
 
   const colorsWarehouse = [];
   for (let i = 0; i < modelWarehause.length; i++) {
@@ -100,6 +115,11 @@ function ChartsComponent({
   const colorsScrapped = [];
   for (let i = 0; i < scrapped.length; i++) {
     colorsScrapped.push(`rgba(${rand()}, ${rand()}, ${rand()})`);
+  }
+
+  const colorsEmpty = [];
+  for (let i = 0; i < empty.length; i++) {
+    colorsEmpty.push(`rgba(${rand()}, ${rand()}, ${rand()})`);
   }
 
   
@@ -173,11 +193,23 @@ function ChartsComponent({
     ],
   };
 
+  const dataEmpty = {
+    labels: empty,
+    datasets: [
+      {
+        data: countEmpty,
+        backgroundColor: colorsEmpty,
+        borderWidth: 1,
+      },
+    ],
+  };
+
   const setClass = () => setClassname(!className)
   const setClass0 = () => setClassname0(!className0)
   const setClass1 = () => setClassname1(!className1)
   const setClass2 = () => setClassname2(!className2)
   const setClass3 = () => setClassname3(!className3)
+  const setClass4 = () => setClassname4(!className4)
 
   return (
     <Row className="scrolled fullscreen">
@@ -202,6 +234,12 @@ function ChartsComponent({
         </Card.Header>
         <Card.Body>
           <Bar options={options} data={dataHistory} />
+        </Card.Body>
+      </Card>
+      <Card className={classnames('text-center monitor-card', { 'monitor-card-open': !className4 })} onClick={setClass4}>
+        <Card.Header>Пустые на складе: {sumEmpty} шт.</Card.Header>
+        <Card.Body>
+          <Bar options={options} data={dataEmpty} />
         </Card.Body>
       </Card>
       <Card className={classnames('text-center monitor-card', { 'monitor-card-open': !className1 })} onClick={setClass1}>

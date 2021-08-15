@@ -16,5 +16,6 @@ export const rootReducer = combineReducers({    //combineReducers использ
     filteredRefuel: issueCartridgeReducer,
     filteredIssued: issueCartridgeReducer,
     filteredWarehouse: issueCartridgeReducer,
-    filteredScrapped: issueCartridgeReducer
+    filteredScrapped: issueCartridgeReducer,
+    filteredEmpty: issueCartridgeReducer
 })

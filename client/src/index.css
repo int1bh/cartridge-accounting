@@ -98,3 +98,24 @@ a:hover {
 .fullscreen {
     height: 100vh;
 }
+
+.button-block {
+    margin-left: 20px;
+    margin-right: 100px;
+}
+
+.report-button {
+    width: 380px;
+    height: 150px;
+    background-color: #0b1f35;
+    border-color: #0b1f35;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.report-button:hover {
+    background-color: #0b1f35;
+    -webkit-transform: scale(1.07);
+    -ms-transform: scale(1.07);
+    transform: scale(1.07);
+}

@@ -4,7 +4,7 @@ import {
   getFiltered,
   GET_FILTERED_ISSUED,
   GET_FILTERED_REFUEL,
-  GET_FILTERED_WAREHOUSE, GET_FILTERED_SCRAPPED,
+  GET_FILTERED_WAREHOUSE, GET_FILTERED_SCRAPPED, GET_FILTERED_EMPTY
 } from "../actions/operationsActions";
 import MonitorContent from "../component/MonitorContent";
 
@@ -19,6 +19,7 @@ export const Monitor = () => {
   );
   useEffect(() => dispatch(getFiltered("toRefuel=true&scrapped=false", GET_FILTERED_REFUEL)));
   useEffect(() => dispatch(getFiltered("issued=false&toRefuel=false&scrapped=true", GET_FILTERED_SCRAPPED)));
+  useEffect(() => dispatch(getFiltered("empty=true", GET_FILTERED_EMPTY)));
 
   return <MonitorContent />;
 };
