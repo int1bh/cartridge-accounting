@@ -1,4 +1,4 @@
 {
   "port": 5000,
-  "mongoUri": "mongodb+srv://u_16backup:Qwerty123@cluster0.maoxg.mongodb.net/cartridge?retryWrites=true&w=majority"
+  "mongoUri": "mongodb+srv://user:pass@cluster0.maoxg.mongodb.net/cartridge?retryWrites=true&w=majority"
 }
